@@ -19,6 +19,7 @@ export type SectionContent =
     | ScopeContent
     | TechnicalFeasibilityContent
     | EconomicFeasibilityContent
+    | OperativeFeasibilityContent   // Added this type
     | RisksContent
     | TimelineContent
     | ImpactContent
@@ -126,6 +127,43 @@ export interface EconomicFeasibilityContent {
     type: 'economic-feasibility';
     tabs: EconomicTab[];
     funding: FundingSources;
+}
+
+// Operative Feasibility Section
+export interface OrganizationalChange {
+    title: string;
+    description: string;
+    icon: ComponentType;
+}
+
+export interface AdoptionStrategy {
+    title: string;
+    description: string;
+    icon: ComponentType;
+}
+
+export interface ResistanceSource {
+    description: string;
+}
+
+export interface MitigationStrategy {
+    description: string;
+}
+
+export interface StakeholderImpact {
+    group: string;
+    impact: string;
+    resistanceLevel: 'Alto' | 'Medio' | 'Bajo';
+    strategy: string;
+}
+
+export interface OperativeFeasibilityContent {
+    type: 'operative-feasibility';
+    organizationalChanges: OrganizationalChange[];
+    adoptionStrategies: AdoptionStrategy[];
+    resistanceSources: ResistanceSource[];
+    mitigationStrategies: MitigationStrategy[];
+    stakeholderImpacts: StakeholderImpact[];
 }
 
 // Risks Section

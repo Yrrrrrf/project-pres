@@ -25,7 +25,8 @@ import {
     Cpu,
     Cloud,
     TrendingUp,
-    BarChart3
+    BarChart3,
+    Layers
 } from 'lucide-svelte';
 
 class ProjectDataStore {
@@ -219,6 +220,94 @@ class ProjectDataStore {
             }
         },
         {
+            id: "factibilidad-operativa",
+            title: "Análisis de Factibilidad Operativa",
+            icon: Users,
+            iconBgColor: "bg-amber-100",
+            iconColor: "text-amber-600",
+            defaultExpanded: false,
+            content: {
+              type: "operative-feasibility",
+              organizationalChanges: [
+                {
+                  title: "Capacitación de Personal",
+                  description: "Conductores y personal administrativo requerirán capacitación en el uso de nuevas tecnologías y procedimientos operativos.",
+                  icon: Users
+                },
+                {
+                  title: "Procedimientos de Cobro",
+                  description: "Adaptación de métodos de cobro tradicionales a un sistema digital integrado con múltiples opciones de pago.",
+                  icon: CreditCard
+                },
+                {
+                  title: "Mantenimiento Técnico",
+                  description: "Nuevos protocolos para el mantenimiento de dispositivos GPS y módulos de transmisión instalados en las unidades.",
+                  icon: Wrench
+                }
+              ],
+              adoptionStrategies: [
+                {
+                  title: "Implementación Gradual",
+                  description: "Comenzando con rutas de mayor demanda",
+                  icon: Layers
+                },
+                {
+                  title: "Incentivos para Usuarios",
+                  description: "Descuentos y viajes gratuitos promocionales",
+                  icon: Award
+                },
+                {
+                  title: "Campañas Educativas",
+                  description: "Información sobre beneficios del sistema",
+                  icon: Lightbulb
+                },
+                {
+                  title: "Alternativas Tecnológicas",
+                  description: "Tarjetas físicas para usuarios sin smartphones",
+                  icon: Smartphone
+                }
+              ],
+              resistanceSources: [
+                { description: "Operadores de transporte reacios a implementar nuevas tecnologías" },
+                { description: "Usuarios sin acceso a smartphones o datos móviles" },
+                { description: "Preocupaciones sobre privacidad y uso de datos personales" },
+                { description: "Resistencia a modelos de pago digital entre poblaciones específicas" }
+              ],
+              mitigationStrategies: [
+                { description: "Programas de capacitación inclusivos y accesibles" },
+                { description: "Alternativas para usuarios sin acceso a tecnología" },
+                { description: "Políticas claras de privacidad y protección de datos" },
+                { description: "Enfoque inclusivo en el diseño del sistema" }
+              ],
+              stakeholderImpacts: [
+                {
+                  group: "Conductores",
+                  impact: "Alto",
+                  resistanceLevel: "Alto",
+                  strategy: "Capacitación y beneficios directos"
+                },
+                {
+                  group: "Operadores",
+                  impact: "Alto",
+                  resistanceLevel: "Medio",
+                  strategy: "Demostración de ROI y eficiencia"
+                },
+                {
+                  group: "Usuarios jóvenes",
+                  impact: "Medio",
+                  resistanceLevel: "Bajo",
+                  strategy: "Experiencia de usuario intuitiva"
+                },
+                {
+                  group: "Adultos mayores",
+                  impact: "Medio",
+                  resistanceLevel: "Alto",
+                  strategy: "Alternativas no digitales y asistencia"
+                }
+              ]
+            }
+          },
+        {
             id: "riesgos",
             title: "Análisis de Riesgos",
             icon: AlertTriangle,
@@ -336,79 +425,6 @@ class ProjectDataStore {
                     estimatedStart: "Q1 2024",
                     estimatedLaunch: "Q2 2025"
                 }
-            }
-        },
-        {
-            id: "impacto",
-            title: "Impacto Esperado",
-            icon: LineChart,
-            iconBgColor: "bg-purple-100",
-            iconColor: "text-purple-600",
-            defaultExpanded: false,
-            content: {
-                type: "impact",
-                tabs: [
-                    {
-                        id: 'social',
-                        title: 'Social',
-                        icon: Users,
-                        details: {
-                            timeReduction: {
-                                value: "118",
-                                unit: "horas anuales",
-                                description: "Actualmente, los usuarios de transporte público pierden en promedio 118 horas anuales debido a la ineficiencia del sistema. El proyecto busca reducir este tiempo en al menos un 40%."
-                            },
-                            keyBenefits: [
-                                {
-                                    title: "Mayor Seguridad",
-                                    description: "El registro de usuarios y seguimiento en tiempo real aumentará la seguridad de los pasajeros y permitirá respuestas más rápidas ante incidentes.",
-                                    icon: ShieldCheck
-                                },
-                                {
-                                    title: "Inclusión Social",
-                                    description: "Acceso equitativo a servicios de movilidad para todos los segmentos de la población, incluyendo alternativas para personas sin acceso a tecnología.",
-                                    icon: Users
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        id: 'economico',
-                        title: 'Económico',
-                        icon: DollarSign,
-                        details: {
-                            congestionReduction: {
-                                value: "94 mil millones",
-                                unit: "MXN anuales",
-                                description: "La congestión en 32 ciudades mexicanas cuesta actualmente 94 mil millones de pesos al año. Una reducción del 10% representaría un ahorro de 9.4 mil millones de pesos anuales."
-                            }
-                        }
-                    },
-                    {
-                        id: 'ambiental',
-                        title: 'Ambiental',
-                        icon: Lightbulb,
-                        details: {
-                            emissionsReduction: {
-                                value: "15-20%",
-                                unit: "reducción estimada",
-                                description: "El mayor uso del transporte público y la optimización de rutas contribuirán a una reducción significativa de emisiones de CO2 y otros contaminantes."
-                            }
-                        }
-                    },
-                    {
-                        id: 'urbano',
-                        title: 'Urbano',
-                        icon: Compass,
-                        details: {
-                            trafficReduction: {
-                                value: "25%",
-                                unit: "reducción de tráfico",
-                                description: "La optimización del transporte público y el cambio modal contribuirán a una significativa descongestión de las principales vías urbanas."
-                            }
-                        }
-                    }
-                ]
             }
         },
         {
