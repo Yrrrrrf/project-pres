@@ -33,6 +33,19 @@
         return 'bg-green-100';
     }
 
+    function getCellTextColor(impact: string, probability: string): string {
+        // Adding dark text colors for better contrast on light backgrounds
+        if (impact === 'Alto' && probability === 'Alto') return 'text-red-800';
+        if (impact === 'Alto' && probability === 'Medio') return 'text-amber-800';
+        if (impact === 'Alto' && probability === 'Bajo') return 'text-green-800';
+        if (impact === 'Medio' && probability === 'Alto') return 'text-red-800';
+        if (impact === 'Medio' && probability === 'Medio') return 'text-amber-800';
+        if (impact === 'Medio' && probability === 'Bajo') return 'text-green-800';
+        if (impact === 'Bajo' && probability === 'Alto') return 'text-amber-800';
+        if (impact === 'Bajo' && probability === 'Medio') return 'text-green-800';
+        return 'text-green-800';
+    }
+
     function getCellAction(impact: string, probability: string): string {
         if (impact === 'Alto' && probability === 'Alto') return 'Crítico - Evitar';
         if (impact === 'Alto' && probability === 'Medio') return 'Mitigar';
@@ -66,12 +79,12 @@
             <!-- Alto Impacto -->
             {#each ['Bajo', 'Medio', 'Alto'] as probability}
                 <div 
-                    class={`${getCellColor('Alto', probability)} p-2 rounded text-xs ${compact ? '' : 'h-24'} flex items-center justify-center`}
+                    class={`${getCellColor('Alto', probability)} p-2 rounded ${compact ? '' : 'h-24'} flex items-center justify-center`}
                 >
-                    <div>
-                        <p class="font-medium mb-1">{getCellAction('Alto', probability)}</p>
+                    <div class="w-full">
+                        <p class={`font-medium mb-1 ${getCellTextColor('Alto', probability)}`}>{getCellAction('Alto', probability)}</p>
                         {#if !compact}
-                            <ul class="text-left text-xs">
+                            <ul class={`text-left text-xs ${getCellTextColor('Alto', probability)}`}>
                                 {#each getRisksForCell('Alto', probability) as risk}
                                     <li>• {risk.name}</li>
                                 {/each}
@@ -84,12 +97,12 @@
             <!-- Medio Impacto -->
             {#each ['Bajo', 'Medio', 'Alto'] as probability}
                 <div 
-                    class={`${getCellColor('Medio', probability)} p-2 rounded text-xs ${compact ? '' : 'h-24'} flex items-center justify-center`}
+                    class={`${getCellColor('Medio', probability)} p-2 rounded ${compact ? '' : 'h-24'} flex items-center justify-center`}
                 >
-                    <div>
-                        <p class="font-medium mb-1">{getCellAction('Medio', probability)}</p>
+                    <div class="w-full">
+                        <p class={`font-medium mb-1 ${getCellTextColor('Medio', probability)}`}>{getCellAction('Medio', probability)}</p>
                         {#if !compact}
-                            <ul class="text-left text-xs">
+                            <ul class={`text-left text-xs ${getCellTextColor('Medio', probability)}`}>
                                 {#each getRisksForCell('Medio', probability) as risk}
                                     <li>• {risk.name}</li>
                                 {/each}
@@ -102,12 +115,12 @@
             <!-- Bajo Impacto -->
             {#each ['Bajo', 'Medio', 'Alto'] as probability}
                 <div 
-                    class={`${getCellColor('Bajo', probability)} p-2 rounded text-xs ${compact ? '' : 'h-24'} flex items-center justify-center`}
+                    class={`${getCellColor('Bajo', probability)} p-2 rounded ${compact ? '' : 'h-24'} flex items-center justify-center`}
                 >
-                    <div>
-                        <p class="font-medium mb-1">{getCellAction('Bajo', probability)}</p>
+                    <div class="w-full">
+                        <p class={`font-medium mb-1 ${getCellTextColor('Bajo', probability)}`}>{getCellAction('Bajo', probability)}</p>
                         {#if !compact}
-                            <ul class="text-left text-xs">
+                            <ul class={`text-left text-xs ${getCellTextColor('Bajo', probability)}`}>
                                 {#each getRisksForCell('Bajo', probability) as risk}
                                     <li>• {risk.name}</li>
                                 {/each}

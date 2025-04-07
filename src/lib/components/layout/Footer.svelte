@@ -5,9 +5,8 @@
         courseName = "Ingeniería de Software I",
         institution = "Universidad Autónoma del Estado de México",
         faculty = "Facultad de Ingeniería",
-        professor = "Dr. Juan Pérez Martínez",
-        courseCode = "IS2023",
-        credits = "8"
+        professor = "Jose Antonio Alvarez Lobato",
+        courseCode = "LINC45",
     } = $props();
 </script>
 
@@ -34,7 +33,7 @@
                 <ul class="space-y-2 text-slate-300">
                     <li class="flex items-center gap-2">
                         <Calendar1 class="h-4 w-4 text-emerald-400" />
-                        <span>Semestre: 2023-2024</span>
+                        <span>Semestre: 2025A</span>
                     </li>
                     <li class="flex items-center gap-2">
                         <User class="h-4 w-4 text-emerald-400" />
@@ -43,10 +42,6 @@
                     <li class="flex items-center gap-2">
                         <File class="h-4 w-4 text-emerald-400" />
                         <span>Clave de la materia: {courseCode}</span>
-                    </li>
-                    <li class="flex items-center gap-2">
-                        <Lamp class="h-4 w-4 text-emerald-400" />
-                        <span>Créditos: {credits}</span>
                     </li>
                 </ul>
             </div>

@@ -1,8 +1,5 @@
 <script lang="ts">
-    import { ThumbsUp, ThumbsDown, GitBranch, Users, CreditCard, Wrench, Layers, Award, Lightbulb, Smartphone } from 'lucide-svelte';
-    
-    // Operative Feasibility is not defined in the types yet, 
-    // but we're creating it based on the React implementation
+    import { ThumbsUp, ThumbsDown, GitBranch, Users, CreditCard, Wrench, Layers, Award, Lightbulb, Smartphone } from 'lucide-svelte';    
     let { content } = $props<{ content: any }>();
   </script>
   

@@ -72,15 +72,6 @@ class ProjectDataStore {
                 type: "objectives",
                 description: `Los siguientes objetivos han sido establecidos para guiar el desarrollo e implementación del sistema, 
                 con indicadores de progreso basados en el avance actual del proyecto:`,
-                objectives: [
-                    { id: 'obj1', name: 'Seguimiento en tiempo real', progress: 65, icon: MapPin },
-                    { id: 'obj2', name: 'Sistema de registro de usuarios', progress: 80, icon: Users },
-                    { id: 'obj3', name: 'Reducción de tiempos de espera', progress: 40, icon: Clock },
-                    { id: 'obj4', name: 'Disminución de congestión vial', progress: 35, icon: Truck },
-                    { id: 'obj5', name: 'Sistema de alerta de seguridad', progress: 55, icon: ShieldCheck },
-                    { id: 'obj6', name: 'Modelo de suscripción', progress: 70, icon: Award },
-                    { id: 'obj7', name: 'Reducción de emisiones', progress: 30, icon: Lightbulb },
-                ],
                 successCriteria: [
                     { title: "Reducción de tiempos de espera", description: "Disminución del 40% en tiempos de espera promedio" },
                     { title: "Adopción de usuarios", description: "50% de usuarios de transporte utilizando la aplicación" },
@@ -149,9 +140,9 @@ class ProjectDataStore {
             content: {
                 type: "technical-feasibility",
                 technologies: [
-                    { name: 'React Native', category: 'Frontend', icon: Smartphone, level: 'Alto', description: 'Para desarrollo de aplicaciones móviles multiplataforma (iOS y Android)' },
-                    { name: 'Node.js + Express', category: 'Backend', icon: Server, level: 'Alto', description: 'Para desarrollo de APIs RESTful y lógica de servidor' },
-                    { name: 'MongoDB', category: 'Base de Datos', icon: Database, level: 'Medio', description: 'Para almacenamiento de datos no estructurados' },
+                    { name: 'Svelte-Kit', category: 'Frontend', icon: FileText, level: 'Alto', description: 'Framework para desarrollo de aplicaciones web' },
+                    { name: 'Tailwind CSS', category: 'Frontend', icon: FileText, level: 'Alto', description: 'Framework CSS para diseño responsivo' },
+                    { name: 'deno', category: 'Desarrollo', icon: FileText, level: 'Alto', description: 'Entorno de ejecución para JavaScript y TypeScript' },
                     { name: 'PostgreSQL', category: 'Base de Datos', icon: Database, level: 'Medio', description: 'Para datos geoespaciales y relacionales' },
                     { name: 'Google Maps API', category: 'Servicios', icon: Globe, level: 'Alto', description: 'Para geolocalización y mapeo de rutas' },
                     { name: 'Stripe/PayPal', category: 'Pagos', icon: CreditCard, level: 'Medio', description: 'Para procesamiento de pagos digitales' },

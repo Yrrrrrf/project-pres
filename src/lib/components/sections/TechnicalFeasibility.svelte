@@ -108,15 +108,15 @@
           <div class="space-y-2">
             <div class="flex items-center gap-2">
               <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-              <p class="text-slate-700">Desarrollo móvil (React Native, Swift, Kotlin)</p>
+              <p class="text-slate-700">Desarrollo móvil (Svelte-Kit + Tauri2)</p>
             </div>
             <div class="flex items-center gap-2">
               <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-              <p class="text-slate-700">Desarrollo backend (Node.js, Express, APIs)</p>
+              <p class="text-slate-700">Desarrollo backend (Rust: Axum)</p>
             </div>
             <div class="flex items-center gap-2">
               <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-              <p class="text-slate-700">Bases de datos (MongoDB, PostgreSQL)</p>
+              <p class="text-slate-700">Bases de datos (PostgreSQL)</p>
             </div>
             <div class="flex items-center gap-2">
               <div class="w-2 h-2 rounded-full bg-blue-500"></div>
