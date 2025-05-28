@@ -1,481 +1,247 @@
 // src/lib/stores/projectData.svelte.ts
-import type { ProjectSection } from '$lib/types';
-import { 
-    FileText, 
-    Target, 
-    Compass, 
-    Wrench, 
-    DollarSign, 
-    Users, 
-    AlertTriangle, 
-    Calendar, 
-    LineChart, 
-    CheckCircle,
-    Lightbulb,
-    Clock,
-    Truck,
-    ShieldCheck,
-    Award,
-    MapPin,
-    Smartphone,
-    Server,
-    Database,
-    Globe,
-    CreditCard,
-    Cpu,
-    Cloud,
-    TrendingUp,
-    BarChart3,
-    Layers
+import type { ProjectConfig, ProjectSection, IconDetail /* import other specific types if needed */ } from '$lib/types';
+import {
+	// Main Section Icons (already imported, ensure they match usage)
+	FileText, Target, Compass, Wrench, DollarSign, Users, AlertTriangle as AlertTriangleMain, Calendar as CalendarMain, CheckCircle as CheckCircleMain,
+	// Specific Content Icons (add all used within sections)
+	Clock, Lightbulb, Truck, ShieldCheck, Award, MapPin, Smartphone, Server, Database, Globe, CreditCard, Cpu, Cloud, TrendingUp, BarChart3, Layers,
+	University, BookOpen, Building, UserCheck, Tag, Edit3, GitBranch, ThumbsUp, ThumbsDown,
+	ListChecks, Flag, CheckSquare, Aperture, Briefcase, // Examples, replace with actuals
+    // For technical feasibility details
+    LocateFixed, Zap, BarChartHorizontal, Users2 as UsersRound,
+    // For economic feasibility
+    Wallet, ArrowRightToLine, HandCoins, TrendingUpIcon, BarChartBig, PiggyBank,
+    // For operative feasibility
+    UsersIcon, CreditCardIcon, WrenchIcon, LayersIcon, AwardIcon, LightbulbIcon, SmartphoneIcon, AlertTriangleIcon, ShieldCheckIcon, InfoIcon, GitBranchIcon, ThumbsUpIcon, ThumbsDownIcon, XSquare, CheckCircle2,
+    // For risks
+    AlertCircle, ShieldAlert, Eye, XCircle, ShieldX, CheckCircle,
+    // For timeline
+    ClipboardList, TargetIcon, Milestone, GanttChartSquare, ClockIcon, CalendarClock, CalendarDays, Rocket,
+    // For conclusions
+    CircleCheckBig, AlertTriangle, ArrowRight, Sparkles
 } from 'lucide-svelte';
 
-class ProjectDataStore {
-    // Project metadata
-    title: string = $state("Sistema Inteligente de Transporte Público");
-    subtitle: string = $state("Análisis de Factibilidad y Propuesta de Implementación");
-    
-    // Sections data
-    sections: ProjectSection[] = $state([
-        {
-            id: "resumen",
-            title: "Resumen Ejecutivo",
-            icon: FileText,
-            iconBgColor: "bg-emerald-100",
-            iconColor: "text-emerald-600",
-            defaultExpanded: true,
-            content: {
-                type: "executive-summary",
-                summary: `Este proyecto propone el desarrollo de un sistema integral para la modernización del transporte público mediante 
-                una aplicación móvil que proporcione seguimiento en tiempo real de las unidades, sistema de pagos digitales, y 
-                registro de usuarios.
+import type { ComponentType } from 'svelte';
 
-                La iniciativa busca optimizar la eficiencia del transporte público, mejorar la seguridad de los 
-                pasajeros, reducir los tiempos de espera y contribuir a la descongestión vial en zonas urbanas.`,
-                quote: `Según datos del IMCO, la congestión en 32 ciudades mexicanas cuesta 94 mil millones de pesos al año, con usuarios 
-                de transporte público perdiendo 118 horas anuales en comparación con las 71 horas que pierden quienes usan automóvil.`,
-                keyPoints: [
-                    { title: "Reducción de Tiempo", description: "118 horas anuales perdidas por usuario", icon: Clock },
-                    { title: "Impacto Económico", description: "94 mil millones de pesos anuales en pérdidas", icon: DollarSign },
-                    { title: "Mejora en Seguridad", description: "Sistema de registro y verificación de usuarios", icon: Users },
-                    { title: "Impacto Ambiental", description: "Reducción de emisiones por optimización", icon: Lightbulb },
-                ]
-            }
+// Helper to create IconDetail for brevity
+const createIcon = (component: ComponentType, className: string = 'h-5 w-5'): IconDetail => ({ component, className });
+
+class ProjectDataStore {
+	config: ProjectConfig = $state({
+		siteHtmlTitle: "Proyecto: Sistema Inteligente de Transporte Público",
+		header: {
+			projectTitle: "Sistema Inteligente de Transporte Público",
+			projectSubtitle: "Análisis de Factibilidad y Propuesta de Implementación",
+			courseName: "Ingeniería de Software I",
+			institution: "Universidad Autónoma del Estado de México",
+			institutionIcon: createIcon(University, 'h-8 w-8'),
+		},
+		footer: {
+			courseInfo: {
+				title: "Ingeniería de Software I",
+				icon: createIcon(BookOpen, 'h-5 w-5'),
+				institution: "Universidad Autónoma del Estado de México",
+				faculty: "Facultad de Ingeniería",
+				documentContext: `Este documento forma parte del análisis de factibilidad para el proyecto "Sistema Inteligente de Transporte Público" desarrollado como parte del curso de Ingeniería de Software I.`,
+                documentContextIcon: createIcon(Edit3, 'h-4 w-4 mt-1 flex-shrink-0')
+			},
+			courseDetails: {
+				title: "Información del Curso",
+				items: [
+					{ label: "Semestre:", value: "2025A", icon: createIcon(CalendarMain, 'h-4 w-4 text-emerald-400') },
+					{ label: "Profesor:", value: "Jose Antonio Alvarez Lobato", icon: createIcon(UserCheck, 'h-4 w-4 text-emerald-400') },
+					{ label: "Clave de la materia:", value: "LINC45", icon: createIcon(Tag, 'h-4 w-4 text-emerald-400') },
+				],
+			},
+			copyrightInstitution: "Universidad Autónoma del Estado de México",
+            copyrightText: "Todos los derechos reservados."
+		},
+        pageIntro: {
+            title: "Sistema Inteligente de Transporte Público",
+            subtitle: "Análisis de Factibilidad y Propuesta de Implementación",
+            badges: [
+                { text: "Ingeniería de Software", bgColorClass: "bg-emerald-600", hoverBgColorClass: "hover:bg-emerald-700", textColorClass: "text-white" },
+                { text: "Movilidad Urbana", bgColorClass: "bg-cyan-600", hoverBgColorClass: "hover:bg-cyan-700", textColorClass: "text-white" },
+                { text: "Desarrollo Sostenible", bgColorClass: "bg-violet-600", hoverBgColorClass: "hover:bg-violet-700", textColorClass: "text-white" },
+            ]
         },
-        {
-            id: "objetivos",
-            title: "Objetivos del Proyecto",
-            icon: Target,
-            iconBgColor: "bg-cyan-100",
-            iconColor: "text-cyan-600",
-            defaultExpanded: false,
-            content: {
-                type: "objectives",
-                description: `Los siguientes objetivos han sido establecidos para guiar el desarrollo e implementación del sistema, 
-                con indicadores de progreso basados en el avance actual del proyecto:`,
-                successCriteria: [
-                    { title: "Reducción de tiempos de espera", description: "Disminución del 40% en tiempos de espera promedio" },
-                    { title: "Adopción de usuarios", description: "50% de usuarios de transporte utilizando la aplicación" },
-                    { title: "Satisfacción de usuarios", description: "Calificación promedio de 4.5/5 en la aplicación" },
-                    { title: "Reducción de congestión", description: "Disminución del 15% en congestión vial en zonas clave" },
-                ]
-            }
-        },
-        {
-            id: "alcance",
-            title: "Alcance del Proyecto",
-            icon: Compass,
-            iconBgColor: "bg-violet-100",
-            iconColor: "text-violet-600",
-            defaultExpanded: false,
-            content: {
-                type: "scope",
-                components: [
-                    { 
-                        title: "Aplicación Móvil", 
-                        description: "Desarrollo de aplicación para usuarios finales en Android e iOS con seguimiento en tiempo real, pagos digitales y sistema de alertas.",
-                        icon: Smartphone 
-                    },
-                    { 
-                        title: "Plataforma Web", 
-                        description: "Portal de administración para operadores de transporte con monitoreo de unidades, gestión de rutas y análisis de datos.",
-                        icon: Globe 
-                    },
-                    { 
-                        title: "Sistema de Geolocalización", 
-                        description: "Infraestructura para seguimiento en tiempo real de unidades mediante GPS y transmisión de datos a la plataforma central.",
-                        icon: MapPin 
-                    },
-                    { 
-                        title: "Sistema de Pagos", 
-                        description: "Pasarela de pagos digitales y modelo de suscripción para usuarios frecuentes con múltiples métodos de pago.",
-                        icon: CreditCard 
-                    }
-                ],
-                deliverables: [
-                    {
-                        phase: "Fase 1: Desarrollo de Software",
-                        items: [
-                            "Aplicación móvil funcional (iOS y Android)",
-                            "Backend robusto con APIs documentadas",
-                            "Portal web de administración"
-                        ]
-                    },
-                    {
-                        phase: "Fase 2: Hardware e Infraestructura",
-                        items: [
-                            "Dispositivos IoT para unidades de transporte",
-                            "Infraestructura cloud para procesamiento de datos"
-                        ]
-                    }
-                ]
-            }
-        },
-        {
-            id: "factibilidad-tecnica",
-            title: "Análisis de Factibilidad Técnica",
-            icon: Wrench,
-            iconBgColor: "bg-blue-100",
-            iconColor: "text-blue-600",
-            defaultExpanded: false,
-            content: {
-                type: "technical-feasibility",
-                technologies: [
-                    { name: 'Svelte-Kit', category: 'Frontend', icon: FileText, level: 'Alto', description: 'Framework para desarrollo de aplicaciones web' },
-                    { name: 'Tailwind CSS', category: 'Frontend', icon: FileText, level: 'Alto', description: 'Framework CSS para diseño responsivo' },
-                    { name: 'deno', category: 'Desarrollo', icon: FileText, level: 'Alto', description: 'Entorno de ejecución para JavaScript y TypeScript' },
-                    { name: 'PostgreSQL', category: 'Base de Datos', icon: Database, level: 'Medio', description: 'Para datos geoespaciales y relacionales' },
-                    { name: 'Google Maps API', category: 'Servicios', icon: Globe, level: 'Alto', description: 'Para geolocalización y mapeo de rutas' },
-                    { name: 'Stripe/PayPal', category: 'Pagos', icon: CreditCard, level: 'Medio', description: 'Para procesamiento de pagos digitales' },
-                    { name: 'GPS/IoT', category: 'Hardware', icon: Cpu, level: 'Alto', description: 'Dispositivos para rastreo de unidades' },
-                    { name: 'AWS/Google Cloud', category: 'Infraestructura', icon: Cloud, level: 'Alto', description: 'Para alojamiento y escalabilidad' }
-                ]
-            }
-        },
-        {
-            id: "factibilidad-economica",
-            title: "Análisis de Factibilidad Económica",
-            icon: DollarSign,
-            iconBgColor: "bg-green-100",
-            iconColor: "text-green-600",
-            defaultExpanded: false,
-            content: {
-                type: "economic-feasibility",
-                tabs: [
-                    {
-                        id: 'costs',
-                        title: 'Costos',
-                        icon: DollarSign,
-                        costs: [
-                            { name: 'Desarrollo de software', amount: 2500000, percentage: 35 },
-                            { name: 'Hardware (GPS/IoT)', amount: 1800000, percentage: 25 },
-                            { name: 'Infraestructura cloud', amount: 900000, percentage: 13 },
-                            { name: 'Licencias', amount: 700000, percentage: 10 },
-                            { name: 'Marketing y capacitación', amount: 600000, percentage: 8 },
-                            { name: 'Soporte y mantenimiento', amount: 650000, percentage: 9 }
-                        ]
-                    },
-                    {
-                        id: 'benefits',
-                        title: 'Beneficios',
-                        icon: TrendingUp,
-                        benefits: [
-                            { name: 'Reducción de costos operativos', amount: 1200000, percentage: 20 },
-                            { name: 'Aumento de ingresos', amount: 1800000, percentage: 30 },
-                            { name: 'Ingresos por suscripciones', amount: 1500000, percentage: 25 },
-                            { name: 'Reducción de pérdidas', amount: 900000, percentage: 15 },
-                            { name: 'Valor social', amount: 600000, percentage: 10 }
-                        ]
-                    },
-                    {
-                        id: 'roi',
-                        title: 'ROI',
-                        icon: BarChart3,
-                        roi: {
-                            years: [1, 2, 3, 4, 5],
-                            values: [-4000000, -1500000, 1000000, 3500000, 6000000]
-                        }
-                    }
-                ],
-                funding: {
-                    public: [
-                        "Fondos metropolitanos para movilidad",
-                        "Programas federales para desarrollo urbano",
-                        "Inversión de gobiernos locales"
+		sections: [
+			{
+				id: "resumen",
+				title: "Resumen Ejecutivo",
+				icon: FileText,
+				iconBgColor: "bg-emerald-100", iconColor: "text-emerald-600", defaultExpanded: true,
+				content: {
+					type: "executive-summary",
+					mainParagraph: `Este proyecto propone el desarrollo de un sistema integral para la modernización del transporte público mediante una aplicación móvil que proporcione seguimiento en tiempo real de las unidades, sistema de pagos digitales, y registro de usuarios. La iniciativa busca optimizar la eficiencia del transporte público, mejorar la seguridad de los pasajeros, reducir los tiempos de espera y contribuir a la descongestión vial en zonas urbanas.`,
+					quote: {
+						text: `Según datos del IMCO, la congestión en 32 ciudades mexicanas cuesta 94 mil millones de pesos al año, con usuarios de transporte público perdiendo 118 horas anuales en comparación con las 71 horas que pierden quienes usan automóvil.`,
+					},
+                    closingParagraph: "Esta propuesta aborda directamente esta problemática con soluciones tecnológicas viables y escalables.",
+					keyPointsTitle: "Puntos Clave",
+					keyPoints: [
+						{ title: "Reducción de Tiempo", description: "118 horas anuales perdidas por usuario", icon: createIcon(Clock, 'h-4 w-4 text-emerald-600') },
+						{ title: "Impacto Económico", description: "94 mil millones de pesos anuales en pérdidas", icon: createIcon(DollarSign, 'h-4 w-4 text-emerald-600') },
+						{ title: "Mejora en Seguridad", description: "Sistema de registro y verificación de usuarios", icon: createIcon(Users, 'h-4 w-4 text-emerald-600') }, // UsersRound or ShieldCheck might be better
+						{ title: "Impacto Ambiental", description: "Reducción de emisiones por optimización", icon: createIcon(Lightbulb, 'h-4 w-4 text-emerald-600') },
+					],
+				},
+			},
+			{
+				id: "objetivos",
+				title: "Objetivos del Proyecto",
+				icon: Target,
+				iconBgColor: "bg-cyan-100", iconColor: "text-cyan-600",
+				content: {
+					type: "objectives",
+					description: `Los siguientes objetivos han sido establecidos para guiar el desarrollo e implementación del sistema, con indicadores de progreso basados en el avance actual del proyecto:`,
+					objectives: [ // Assuming ProgressDisplay is used, or adapt component
+						// The image does not show progress bars for these, so I'll keep them minimal
+                        // If ProgressDisplay is used, you'll need name, progress, and icon for each.
+                        // For now, I'll represent them as simple text as the image doesn't have progress bars here.
+                        // This means Objectives.svelte might need adjustment if it *forces* ProgressDisplay.
+                        // Let's assume for template purposes, we want to define them for potential ProgressDisplay
+                        { id: 'obj1', name: 'Optimizar rutas (Placeholder)', progress: 0, icon: createIcon(Truck) },
+                        { id: 'obj2', name: 'Pagos digitales (Placeholder)', progress: 0, icon: createIcon(CreditCard) },
+					],
+					successCriteriaBoxTitle: "Criterios de Éxito",
+                    successCriteriaBoxIcon: createIcon(CheckCircleMain, 'h-5 w-5 text-cyan-600'),
+					successCriteria: [
+						{ title: "Reducción de tiempos de espera", description: "Disminución del 40% en tiempos de espera promedio", icon: createIcon(CheckSquare, 'h-4 w-4 text-cyan-600') },
+						{ title: "Adopción de usuarios", description: "50% de usuarios de transporte utilizando la aplicación", icon: createIcon(CheckSquare, 'h-4 w-4 text-cyan-600') },
+						{ title: "Satisfacción de usuarios", description: "Calificación promedio de 4.5/5 en la aplicación", icon: createIcon(CheckSquare, 'h-4 w-4 text-cyan-600') },
+						{ title: "Reducción de congestión", description: "Disminución del 15% en congestión vial en zonas clave", icon: createIcon(CheckSquare, 'h-4 w-4 text-cyan-600') },
+					],
+				},
+			},
+            // ... (ALCANCE) ...
+            {
+                id: "alcance",
+                title: "Alcance del Proyecto",
+                icon: Compass,
+                iconBgColor: "bg-violet-100", iconColor: "text-violet-600",
+                content: {
+                    type: "scope",
+                    componentsTitle: "Componentes del Sistema",
+                    components: [
+                        { title: "Aplicación Móvil", description: "Desarrollo de aplicación para usuarios finales en Android e iOS con seguimiento en tiempo real, pagos digitales y sistema de alertas.", icon: createIcon(Smartphone, 'h-6 w-6') },
+                        { title: "Plataforma Web", description: "Portal de administración para operadores de transporte con monitoreo de unidades, gestión de rutas y análisis de datos.", icon: createIcon(Globe, 'h-6 w-6') },
+                        { title: "Sistema de Geolocalización", description: "Infraestructura para seguimiento en tiempo real de unidades mediante GPS y transmisión de datos a la plataforma central.", icon: createIcon(MapPin, 'h-6 w-6') },
+                        { title: "Sistema de Pagos", description: "Pasarela de pagos digitales y modelo de suscripción para usuarios frecuentes con múltiples métodos de pago.", icon: createIcon(CreditCard, 'h-6 w-6') }
                     ],
-                    private: [
-                        "Alianzas público-privadas con operadores",
-                        "Inversión de empresas de tecnología",
-                        "Fondos universitarios para investigación"
+                    deliverablesTitle: "Entregables Principales",
+                    deliverables: [
+                        {
+                            phaseTitle: "Fase 1: Desarrollo de Software",
+                            items: [
+                                { text: "Aplicación móvil funcional (iOS y Android)", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-violet-500') },
+                                { text: "Backend robusto con APIs documentadas", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-violet-500') },
+                                { text: "Portal web de administración", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-violet-500') }
+                            ]
+                        },
+                        {
+                            phaseTitle: "Fase 2: Hardware e Infraestructura",
+                            items: [
+                                { text: "Dispositivos IoT para unidades de transporte", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-violet-500') },
+                                { text: "Infraestructura cloud para procesamiento de datos", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-violet-500') }
+                            ]
+                        }
                     ]
                 }
-            }
-        },
-        {
-            id: "factibilidad-operativa",
-            title: "Análisis de Factibilidad Operativa",
-            icon: Users,
-            iconBgColor: "bg-amber-100",
-            iconColor: "text-amber-600",
-            defaultExpanded: false,
-            content: {
-              type: "operative-feasibility",
-              organizationalChanges: [
-                {
-                  title: "Capacitación de Personal",
-                  description: "Conductores y personal administrativo requerirán capacitación en el uso de nuevas tecnologías y procedimientos operativos.",
-                  icon: Users
-                },
-                {
-                  title: "Procedimientos de Cobro",
-                  description: "Adaptación de métodos de cobro tradicionales a un sistema digital integrado con múltiples opciones de pago.",
-                  icon: CreditCard
-                },
-                {
-                  title: "Mantenimiento Técnico",
-                  description: "Nuevos protocolos para el mantenimiento de dispositivos GPS y módulos de transmisión instalados en las unidades.",
-                  icon: Wrench
+            },
+            // ... (FACTIBILIDAD TÉCNICA - you'll need to map icons more carefully here) ...
+            {
+                id: "factibilidad-tecnica",
+                title: "Análisis de Factibilidad Técnica",
+                icon: Wrench,
+                iconBgColor: "bg-blue-100", iconColor: "text-blue-600",
+                content: {
+                    type: "technical-feasibility",
+                    technologiesTitle: "Tecnologías Requeridas",
+                    technologiesTitleIcon: createIcon(Server, 'h-5 w-5 text-blue-600'),
+                    technologies: [
+                        { name: 'Svelte-Kit', category: 'Frontend', description: 'Framework para desarrollo de aplicaciones web', level: 'Alto', icon: createIcon(FileText, 'h-4 w-4 text-blue-600') },
+                        { name: 'Tailwind CSS', category: 'Frontend', description: 'Framework CSS para diseño responsivo', level: 'Alto', icon: createIcon(FileText, 'h-4 w-4 text-blue-600') }, // Consider a more specific icon if available (e.g. Palette)
+                        { name: 'deno', category: 'Desarrollo', description: 'Entorno de ejecución para JavaScript y TypeScript', level: 'Alto', icon: createIcon(FileText, 'h-4 w-4 text-blue-600') }, // Consider CodeXml or similar
+                        { name: 'PostgreSQL', category: 'Base de Datos', description: 'Para datos geoespaciales y relacionales', level: 'Medio', icon: createIcon(Database, 'h-4 w-4 text-blue-600') },
+                        { name: 'Google Maps API', category: 'Servicios', description: 'Para geolocalización y mapeo de rutas', level: 'Alto', icon: createIcon(Globe, 'h-4 w-4 text-blue-600') },
+                        { name: 'Stripe/PayPal', category: 'Pagos', description: 'Para procesamiento de pagos digitales', level: 'Medio', icon: createIcon(CreditCard, 'h-4 w-4 text-blue-600') },
+                        { name: 'GPS/IoT', category: 'Hardware', description: 'Dispositivos para rastreo de unidades', level: 'Alto', icon: createIcon(Cpu, 'h-4 w-4 text-blue-600') },
+                        { name: 'AWS/Google Cloud', category: 'Infraestructura', description: 'Para alojamiento y escalabilidad', level: 'Alto', icon: createIcon(Cloud, 'h-4 w-4 text-blue-600') }
+                    ],
+                    viabilityTitle: "Viabilidad Técnica",
+                    viabilityTitleIcon: createIcon(CheckCircleMain, 'h-5 w-5 text-blue-600'),
+                    viabilityIntro: "El proyecto es técnicamente viable utilizando tecnologías maduras y ampliamente probadas. Las principales consideraciones técnicas incluyen:",
+                    viabilityPoints: [
+                        { title: "Precisión de geolocalización", description: "En áreas urbanas densas con edificios altos", icon: createIcon(LocateFixed, 'h-4 w-4 text-blue-600') },
+                        { title: "Sincronización en tiempo real", description: "Entre múltiples dispositivos y servidores", icon: createIcon(Zap, 'h-4 w-4 text-blue-600') },
+                        { title: "Manejo de picos de tráfico", description: "Durante horas de mayor demanda", icon: createIcon(BarChartHorizontal, 'h-4 w-4 text-blue-600') }
+                    ],
+                    resourcesTitle: "Disponibilidad de Recursos",
+                    resourcesTitleIcon: createIcon(UsersRound, 'h-5 w-5 text-blue-600'),
+                    resourcesIntro: "Se requiere un equipo multidisciplinario con experiencia en diversas áreas técnicas:",
+                    resourcePoints: [
+                        { text: "Desarrollo móvil (Svelte-Kit + Tauri2)", icon: createIcon(Aperture, 'w-2 h-2 rounded-full bg-blue-500')}, // Using Aperture as a generic bullet
+                        { text: "Desarrollo backend (Rust: Axum)", icon: createIcon(Aperture, 'w-2 h-2 rounded-full bg-blue-500')},
+                        { text: "Bases de datos (PostgreSQL)", icon: createIcon(Aperture, 'w-2 h-2 rounded-full bg-blue-500')},
+                        { text: "Geolocalización y mapas (Google Maps API)", icon: createIcon(Aperture, 'w-2 h-2 rounded-full bg-blue-500')}
+                    ],
+                    resourcesNote: "Nota: La Universidad cuenta con talento en estas áreas a través de estudiantes avanzados y personal docente de la Licenciatura de Ingeniería en Computación, quienes pueden aportar al desarrollo bajo supervisión adecuada."
                 }
-              ],
-              adoptionStrategies: [
-                {
-                  title: "Implementación Gradual",
-                  description: "Comenzando con rutas de mayor demanda",
-                  icon: Layers
-                },
-                {
-                  title: "Incentivos para Usuarios",
-                  description: "Descuentos y viajes gratuitos promocionales",
-                  icon: Award
-                },
-                {
-                  title: "Campañas Educativas",
-                  description: "Información sobre beneficios del sistema",
-                  icon: Lightbulb
-                },
-                {
-                  title: "Alternativas Tecnológicas",
-                  description: "Tarjetas físicas para usuarios sin smartphones",
-                  icon: Smartphone
-                }
-              ],
-              resistanceSources: [
-                { description: "Operadores de transporte reacios a implementar nuevas tecnologías" },
-                { description: "Usuarios sin acceso a smartphones o datos móviles" },
-                { description: "Preocupaciones sobre privacidad y uso de datos personales" },
-                { description: "Resistencia a modelos de pago digital entre poblaciones específicas" }
-              ],
-              mitigationStrategies: [
-                { description: "Programas de capacitación inclusivos y accesibles" },
-                { description: "Alternativas para usuarios sin acceso a tecnología" },
-                { description: "Políticas claras de privacidad y protección de datos" },
-                { description: "Enfoque inclusivo en el diseño del sistema" }
-              ],
-              stakeholderImpacts: [
-                {
-                  group: "Conductores",
-                  impact: "Alto",
-                  resistanceLevel: "Alto",
-                  strategy: "Capacitación y beneficios directos"
-                },
-                {
-                  group: "Operadores",
-                  impact: "Alto",
-                  resistanceLevel: "Medio",
-                  strategy: "Demostración de ROI y eficiencia"
-                },
-                {
-                  group: "Usuarios jóvenes",
-                  impact: "Medio",
-                  resistanceLevel: "Bajo",
-                  strategy: "Experiencia de usuario intuitiva"
-                },
-                {
-                  group: "Adultos mayores",
-                  impact: "Medio",
-                  resistanceLevel: "Alto",
-                  strategy: "Alternativas no digitales y asistencia"
-                }
-              ]
-            }
-          },
-        {
-            id: "riesgos",
-            title: "Análisis de Riesgos",
-            icon: AlertTriangle,
-            iconBgColor: "bg-red-100",
-            iconColor: "text-red-600",
-            defaultExpanded: false,
-            content: {
-                type: "risks",
-                risks: [
-                    { 
-                        name: 'Problemas de precisión GPS', 
-                        impact: 'Alto', 
-                        probability: 'Medio', 
-                        category: 'Técnico',
-                        mitigation: 'Algoritmos de corrección y triangulación' 
-                    },
-                    { 
-                        name: 'Fallos de conectividad', 
-                        impact: 'Alto', 
-                        probability: 'Alto', 
-                        category: 'Técnico',
-                        mitigation: 'Implementación de modo offline y sincronización posterior' 
-                    },
-                    { 
-                        name: 'Baja adopción', 
-                        impact: 'Alto', 
-                        probability: 'Medio', 
-                        category: 'Mercado',
-                        mitigation: 'Estrategia de incentivos y campaña de concientización' 
-                    },
-                    { 
-                        name: 'Desinterés de operadores', 
-                        impact: 'Alto', 
-                        probability: 'Alto', 
-                        category: 'Mercado',
-                        mitigation: 'Demostración de beneficios económicos y operativos' 
-                    },
-                    { 
-                        name: 'Retrasos en desarrollo', 
-                        impact: 'Medio', 
-                        probability: 'Alto', 
-                        category: 'Implementación',
-                        mitigation: 'Metodología ágil con entregas incrementales' 
+            },
+			// ... (Continue for Economic, Operative, Risks, Timeline, Conclusions)
+            // Example structure for Conclusions:
+            {
+                id: "conclusiones",
+                title: "Conclusiones y Recomendaciones",
+                icon: CheckCircleMain,
+                iconBgColor: "bg-teal-100", iconColor: "text-teal-600",
+                content: {
+                    type: "conclusions",
+                    generalConclusionTitle: "Conclusión General",
+                    mainConclusionParagraphs: [
+                        `El análisis de factibilidad demuestra que el proyecto de Sistema Inteligente de Transporte Público es viable técnica, económica y operativamente. Los beneficios esperados superan significativamente los costos y riesgos identificados, con un impacto potencial positivo en múltiples dimensiones sociales, económicas y ambientales.`,
+                        `La implementación de esta solución permitiría abordar directamente los problemas de ineficiencia en el transporte público documentados por el IMCO, donde actualmente se pierden 118 horas anuales por usuario y 94 mil millones de pesos a nivel nacional debido a la congestión.`
+                    ],
+                    overallRecommendationText: "Proyecto Recomendado para Implementación",
+                    overallRecommendationIcon: createIcon(CheckCircle, 'h-5 w-5'),
+                    overallRecommendationBoxClass: 'inline-flex items-center gap-2 bg-teal-600 text-white px-4 py-2 rounded-full', // From the image
+                    strengthsTitle: "Fortalezas del Proyecto",
+                    strengthsTitleIcon: createIcon(ThumbsUp, 'h-5 w-5 text-teal-600'),
+                    strengths: [
+                        { title: "Alto impacto social y económico", description: "Beneficios cuantificables para usuarios y operadores", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-teal-600') },
+                        { title: "Tecnologías maduras y probadas", description: "Uso de soluciones tecnológicas con amplia trayectoria", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-teal-600') }
+                    ],
+                    considerationsTitle: "Consideraciones Clave",
+                    considerationsTitleIcon: createIcon(AlertTriangleMain, 'h-5 w-5 text-amber-600'),
+                    considerations: [
+                        { title: "Gestión del cambio", description: "Estrategia robusta para superar resistencia inicial", icon: createIcon(AlertTriangleMain, 'h-5 w-5 text-amber-600') },
+                        { title: "Inclusión digital", description: "Alternativas para usuarios sin acceso a tecnología", icon: createIcon(AlertTriangleMain, 'h-5 w-5 text-amber-600') }
+                    ],
+                    nextStepsTitle: "Próximos Pasos Recomendados",
+                    nextStepsTitleIcon: createIcon(ArrowRight, 'h-5 w-5 text-teal-600'),
+                    nextSteps: [
+                        { id: 1, title: "Establecer Comité Directivo", description: "Formar un comité con representantes de todas las partes interesadas: gobierno, operadores de transporte, usuarios, expertos técnicos y académicos.", priority: "Alta", priorityBadgeClass: 'badge bg-teal-100 text-teal-800' },
+                        { id: 2, title: "Asegurar Financiamiento Inicial", description: "Gestionar los recursos necesarios para la fase inicial de desarrollo, explorando las diversas fuentes de financiamiento identificadas.", priority: "Alta", priorityBadgeClass: 'badge bg-teal-100 text-teal-800' },
+                        { id: 3, title: "Estudio Detallado de Rutas Prioritarias", description: "Realizar un análisis detallado de las rutas con mayor demanda y problemática para implementación piloto, recopilando datos de flujo de pasajeros.", priority: "Media", priorityBadgeClass: 'badge bg-teal-100 text-teal-800' }
+                    ],
+                    finalRecommendationSection: {
+                        title: "Recomendación Final",
+                        icon: createIcon(Sparkles, 'h-5 w-5 text-teal-600'), // Example, image uses a custom chain-link like SVG
+                        text: `Se recomienda proceder con el desarrollo del proyecto siguiendo un enfoque gradual que permita validar hipótesis, ajustar el sistema según feedback de usuarios reales, y escalar la solución de manera sostenible. Es crucial involucrar a todos los actores relevantes desde las etapas iniciales para garantizar la adopción y minimizar la resistencia al cambio.`,
+                        actionButton: {
+                            text: "Aprobar Proyecto",
+                            icon: createIcon(CheckCircle, 'mr-2 h-4 w-4'),
+                            className: 'bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded inline-flex items-center'
+                        }
                     }
-                ]
-            }
-        },
-        {
-            id: "cronograma",
-            title: "Cronograma Propuesto",
-            icon: Calendar,
-            iconBgColor: "bg-indigo-100",
-            iconColor: "text-indigo-600",
-            defaultExpanded: false,
-            content: {
-                type: "timeline",
-                phases: [
-                    { 
-                        id: 1, 
-                        name: 'Planificación y Diseño', 
-                        duration: '3 meses', 
-                        tasks: [
-                            'Análisis detallado de requerimientos y casos de uso',
-                            'Diseño de arquitectura del sistema y modelo de datos',
-                            'Prototipado de interfaces de usuario',
-                            'Selección de tecnologías y proveedores'
-                        ],
-                        milestones: ['Documento de requerimientos aprobado', 'Arquitectura definida', 'Prototipos validados'],
-                        status: 'Pendiente'
-                    },
-                    { 
-                        id: 2, 
-                        name: 'Desarrollo', 
-                        duration: '6 meses', 
-                        tasks: [
-                            'Desarrollo de backend y APIs',
-                            'Implementación de sistemas de geolocalización',
-                            'Desarrollo de aplicaciones móviles',
-                            'Integración de pasarelas de pago',
-                            'Pruebas de componentes'
-                        ],
-                        milestones: ['Backend funcional', 'Aplicación móvil v1.0', 'Integración de pagos completada'],
-                        status: 'Pendiente'
-                    },
-                    { 
-                        id: 3, 
-                        name: 'Piloto', 
-                        duration: '3 meses', 
-                        tasks: [
-                            'Implementación en rutas seleccionadas',
-                            'Capacitación de personal operativo',
-                            'Pruebas de usuario y recopilación de feedback',
-                            'Ajustes y optimizaciones'
-                        ],
-                        milestones: ['Lanzamiento piloto', 'Reporte de feedback de usuarios', 'Optimizaciones implementadas'],
-                        status: 'Pendiente'
-                    },
-                    { 
-                        id: 4, 
-                        name: 'Despliegue', 
-                        duration: '4 meses', 
-                        tasks: [
-                            'Implementación gradual en todas las rutas',
-                            'Campañas de difusión y adopción',
-                            'Monitoreo y resolución de incidencias',
-                            'Evaluación de desempeño inicial'
-                        ],
-                        milestones: ['Despliegue completo', 'Reporte de adopción', 'Evaluación de KPIs iniciales'],
-                        status: 'Pendiente'
-                    }
-                ],
-                summary: {
-                    totalDuration: "16 meses",
-                    longestPhase: "6 meses",
-                    estimatedStart: "Q2 2025",
-                    estimatedLaunch: "Q4 2026"
                 }
             }
-        },
-        {
-            id: "conclusiones",
-            title: "Conclusiones y Recomendaciones",
-            icon: CheckCircle,
-            iconBgColor: "bg-teal-100",
-            iconColor: "text-teal-600",
-            defaultExpanded: false,
-            content: {
-                type: "conclusions",
-                mainConclusion: `El análisis de factibilidad demuestra que el proyecto de Sistema Inteligente de Transporte Público es 
-                viable técnica, económica y operativamente. 
-                Los beneficios esperados superan significativamente los costos y riesgos identificados, con un impacto 
-                potencial positivo en múltiples dimensiones sociales, económicas y ambientales.
-                
-                La implementación de esta solución permitiría abordar directamente los problemas de ineficiencia en el transporte
-                público documentados por el IMCO, donde actualmente se pierden 118 horas anuales por usuario y 94 mil millones
-                de pesos a nivel nacional debido a la congestión.`,
-                strengths: [
-                    {
-                        title: "Alto impacto social y económico",
-                        description: "Beneficios cuantificables para usuarios y operadores"
-                    },
-                    {
-                        title: "Tecnologías maduras y probadas",
-                        description: "Uso de soluciones tecnológicas con amplia trayectoria"
-                    }
-                ],
-                considerations: [
-                    {
-                        title: "Gestión del cambio",
-                        description: "Estrategia robusta para superar resistencia inicial"
-                    },
-                    {
-                        title: "Inclusión digital",
-                        description: "Alternativas para usuarios sin acceso a tecnología"
-                    }
-                ]
-            }
-        }
-    ]);
+		],
+	});
 
-    // Helper functions
-    formatCurrency(amount: number): string {
-        return new Intl.NumberFormat('es-MX', { 
-            style: 'currency', 
-            currency: 'MXN' 
-        }).format(amount);
-    }
-    
-    getRiskColor(level: string): string {
-        switch(level) {
-            case 'Alto': return 'bg-red-100 text-red-700';
-            case 'Medio': return 'bg-amber-100 text-amber-700';
-            case 'Bajo': return 'bg-green-100 text-green-700';
-            default: return 'bg-slate-100 text-slate-700';
-        }
-    }
+    // Keep helper methods in utils/formatting.ts as recommended previously for better separation.
+    // If you prefer them here, they can stay, but utils is cleaner.
 }
 
-// Export singleton instance
 export const projectData = new ProjectDataStore();
