@@ -413,8 +413,8 @@ class ProjectDataStore {
                 summary: {
                     totalDuration: "16 meses",
                     longestPhase: "6 meses",
-                    estimatedStart: "Q1 2024",
-                    estimatedLaunch: "Q2 2025"
+                    estimatedStart: "Q2 2025",
+                    estimatedLaunch: "Q4 2026"
                 }
             }
         },
@@ -435,7 +435,6 @@ class ProjectDataStore {
                 La implementación de esta solución permitiría abordar directamente los problemas de ineficiencia en el transporte
                 público documentados por el IMCO, donde actualmente se pierden 118 horas anuales por usuario y 94 mil millones
                 de pesos a nivel nacional debido a la congestión.`,
-                recommendation: "Proyecto Recomendado para Implementación",
                 strengths: [
                     {
                         title: "Alto impacto social y económico",

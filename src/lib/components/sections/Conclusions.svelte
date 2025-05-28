@@ -12,13 +12,6 @@
       <p class="text-slate-700 leading-relaxed mb-4">
         {content.mainConclusion}
       </p>
-      
-      <div class="flex justify-center mt-6">
-        <div class="inline-flex items-center gap-2 bg-teal-600 text-white px-4 py-2 rounded-full">
-          <CheckCircle class="h-5 w-5" />
-          <span class="font-medium">{content.recommendation}</span>
-        </div>
-      </div>
     </div>
     
     <div class="grid md:grid-cols-2 gap-6">
@@ -121,27 +114,5 @@
         </div>
       </div>
       
-      <div class="mt-8 p-4 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-lg border border-teal-100">
-        <div class="flex items-center gap-2 mb-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-teal-600">
-            <path d="M14 18a4 4 0 0 0 0-8"/>
-            <path d="M14 10a4 4 0 0 0 0-8"/>
-            <circle cx="6" cy="14" r="4"/>
-          </svg>
-          <h4 class="font-medium text-slate-800">Recomendación Final</h4>
-        </div>
-        <p class="text-slate-700">
-          Se recomienda proceder con el desarrollo del proyecto siguiendo un enfoque gradual que permita validar
-          hipótesis, ajustar el sistema según feedback de usuarios reales, y escalar la solución de manera sostenible.
-          Es crucial involucrar a todos los actores relevantes desde las etapas iniciales para garantizar la adopción
-          y minimizar la resistencia al cambio.
-        </p>
-        
-        <div class="mt-4 flex justify-center">
-          <button class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-            <CheckCircle class="mr-2 h-4 w-4" /> Aprobar Proyecto
-          </button>
-        </div>
-      </div>
     </div>
   </div>

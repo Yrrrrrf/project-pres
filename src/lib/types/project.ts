@@ -250,7 +250,6 @@ export interface ProjectConsideration {
 export interface ConclusionsContent {
     type: 'conclusions';
     mainConclusion: string;
-    recommendation: string;
     strengths: ProjectStrength[];
     considerations: ProjectConsideration[];
 }

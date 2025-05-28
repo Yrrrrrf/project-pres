@@ -98,13 +98,13 @@
       <div class="bg-white rounded-lg p-3 text-center shadow-sm">
         <p class="text-sm text-slate-600">Inicio Estimado</p>
         <p class="text-2xl font-bold text-indigo-600">{content.summary.estimatedStart}</p>
-        <p class="text-xs text-slate-500">Enero 2024</p>
+        <p class="text-xs text-slate-500">Abril 2025</p>
       </div>
       
       <div class="bg-white rounded-lg p-3 text-center shadow-sm">
         <p class="text-sm text-slate-600">Lanzamiento</p>
         <p class="text-2xl font-bold text-indigo-600">{content.summary.estimatedLaunch}</p>
-        <p class="text-xs text-slate-500">Abril 2025</p>
+        <p class="text-xs text-slate-500">Octubre 2026</p>
       </div>
     </div>
   </div>
