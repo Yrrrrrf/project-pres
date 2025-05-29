@@ -1,142 +1,143 @@
 // src/lib/stores/projectData.svelte.ts
-import type { ProjectConfig, IconDetail /* import other specific types if needed */ } from '$lib/types';
+import type { ProjectConfig, IconDetail } from '$lib/types';
 import {
-	// Main Section Icons (already imported, ensure they match usage)
+	// Main Section Icons
 	FileText, Target, Compass, Wrench, DollarSign, Users as UsersIcon, AlertTriangle as AlertTriangleMain, Calendar as CalendarMain, CheckCircle as CheckCircleMain,
 	// General Utility Icons
-	Clock, Lightbulb, Truck, ShieldCheck, Award, MapPin, Smartphone, Server, Database, Globe, CreditCard, Cpu, Cloud, TrendingUp, BarChart3 as BarChartIcon, Layers,
+	Clock, Lightbulb, Truck, ShieldCheck, Award, MapPin, Smartphone, Server, Database, Globe, CreditCard, Cpu, Cloud, TrendingUp, BarChart3 as BarChartIcon, Layers, Route, Zap, Coins, UsersRound as UsersRoundIcon, LineChart, SlidersHorizontal, BrainCircuit, Briefcase, UserCheck, MessageSquareWarning, ListChecks, Filter,
 	// Header/Footer specific Icons
-	University, BookOpen, User, File, Tag, Edit3,
-	// Section content specific Icons (ensure all used in data are imported)
-	GitBranch, ThumbsUp, ThumbsDown, ArrowRight, CheckSquare, LocateFixed, Zap, BarChartHorizontal, Users2 as UsersRound, Wallet, ArrowRightToLine, HandCoins, TrendingUpIcon, BarChartBig, PiggyBank,
-    AlertCircle, ShieldAlert, Eye, XCircle, ShieldX, CheckCircle,
-    ClipboardList, TargetIcon, Milestone, GanttChartSquare, CalendarClock, CalendarDays, Rocket,
+	University, BookOpen, User, Tag, Edit3, Building,
+	// Section content specific Icons
+	GitBranch, ThumbsUp, ThumbsDown, ArrowRight, CheckSquare, LocateFixed, BarChartHorizontal, Wallet, ArrowRightToLine, HandCoins, TrendingUpIcon, BarChartBig, PiggyBank,
+    AlertCircle, ShieldAlert, Eye, XCircle, ShieldX,
+    ClipboardList, MilestoneIcon as MilestoneIconLucide, GanttChartSquare, CalendarClock, CalendarDays, Rocket,
     Sparkles, XSquare, CheckCircle2, InfoIcon,
-	Flag,
-    MilestoneIcon
+	Flag, Settings2,
+    CalendarPlus,
+    CheckCircle
 } from 'lucide-svelte';
 
 import type { ComponentType } from 'svelte';
-import { formatCurrency } from '$lib/utils/formatting'; // Import utility for formatting
+import { formatCurrency } from '$lib/utils/formatting';
 
-// Helper to create IconDetail for brevity
 const createIcon = (component: ComponentType, className: string = 'h-5 w-5'): IconDetail => ({ component, className });
 
 class ProjectDataStore {
 	config: ProjectConfig = $state({
-		siteHtmlTitle: "Proyecto: Sistema Inteligente de Transporte Público",
+		siteHtmlTitle: "Plataforma Inteligente para la Optimización del Transporte Público en Toluca",
 		header: {
-			projectTitle: "Sistema Inteligente de Transporte Público",
-			projectSubtitle: "Análisis de Factibilidad y Propuesta de Implementación",
-			courseName: "Ingeniería de Software I",
+			projectTitle: "Plataforma Inteligente para la Optimización del Transporte Público",
+			projectSubtitle: "Propuesta para Líderes del Transporte en Toluca: Eficiencia, Rentabilidad y Calidad de Servicio",
+			courseName: "Ingeniería de Software I (Propuesta Industrial)", // MODIFIED
 			institution: "Universidad Autónoma del Estado de México",
-			institutionIcon: createIcon(University, 'h-8 w-8'),
+			institutionIcon: createIcon(Building, 'h-8 w-8'),
 		},
-		footer: {
+		footer: { // Footer can remain largely academic context, or shift slightly
 			courseInfo: {
-				title: "Ingeniería de Software I",
-				icon: createIcon(BookOpen, 'h-5 w-5'), // Changed to BookOpen as it makes more sense for a course, matching default in Footer.svelte
+				title: "Propuesta Tecnológica Industrial",
+				icon: createIcon(Briefcase, 'h-5 w-5'),
 				institution: "Universidad Autónoma del Estado de México",
 				faculty: "Facultad de Ingeniería",
-				documentContext: `Este documento forma parte del análisis de factibilidad para el proyecto
-                "Sistema Inteligente de Transporte Público" desarrollado como parte
-                del curso de Ingeniería de Software I.`,
+				documentContext: `Esta propuesta presenta una solución tecnológica para la optimización del transporte público, dirigida a los operadores y concesionarios de Toluca, desarrollada en el marco del curso de Ingeniería de Software I.`,
                 documentContextIcon: createIcon(Edit3, 'h-4 w-4 mt-1 flex-shrink-0')
 			},
 			courseDetails: {
-				title: "Información del Curso",
+				title: "Contexto del Proyecto",
 				items: [
-					{ label: "Semestre:", value: "2025A", icon: createIcon(CalendarMain, 'h-4 w-4 text-emerald-400') },
-					{ label: "Profesor:", value: "Jose Antonio Alvarez Lobato", icon: createIcon(User, 'h-4 w-4 text-emerald-400') },
-					{ label: "Clave de la materia:", value: "LINC45", icon: createIcon(Tag, 'h-4 w-4 text-emerald-400') }, // Used Tag as per prompt's Footer.svelte
+					{ label: "Curso:", value: "Ingeniería de Software I", icon: createIcon(BookOpen, 'h-4 w-4 text-emerald-400') },
+					{ label: "Institución:", value: "UAEMéx - Facultad de Ingeniería", icon: createIcon(University, 'h-4 w-4 text-emerald-400') },
+					{ label: "Enfoque:", value: "Solución Industrial Aplicada", icon: createIcon(Settings2, 'h-4 w-4 text-emerald-400') },
+					{ label: "Profesor:", value: "Ing. Juan Pérez", icon: createIcon(User, 'h-4 w-4 text-emerald-400') },
 				],
 			},
 			copyrightInstitution: "Universidad Autónoma del Estado de México",
-            copyrightText: "Todos los derechos reservados."
+            copyrightText: "Propuesta de Valor Tecnológico."
 		},
         pageIntro: {
-            title: "Sistema Inteligente de Transporte Público",
-            subtitle: "Análisis de Factibilidad y Propuesta de Implementación",
+            title: "Transformando el Transporte Público de Toluca con Inteligencia de Datos",
+            subtitle: "Una solución integral para optimizar rutas, reducir costos operativos y mejorar la experiencia del pasajero, diseñada para los líderes del transporte.",
             badges: [
-                { text: "Ingeniería de Software", bgColorClass: "bg-emerald-600", hoverBgColorClass: "hover:bg-emerald-700", textColorClass: "text-white" },
-                { text: "Movilidad Urbana", bgColorClass: "bg-cyan-600", hoverBgColorClass: "hover:bg-cyan-700", textColorClass: "text-white" },
-                { text: "Desarrollo Sostenible", bgColorClass: "bg-violet-600", hoverBgColorClass: "hover:bg-violet-700", textColorClass: "text-white" },
+                { text: "Optimización de Flotillas", bgColorClass: "bg-sky-600", hoverBgColorClass: "hover:bg-sky-700", textColorClass: "text-white" },
+                { text: "Eficiencia Operativa", bgColorClass: "bg-blue-600", hoverBgColorClass: "hover:bg-blue-700", textColorClass: "text-white" },
+                { text: "Inteligencia de Negocios", bgColorClass: "bg-indigo-600", hoverBgColorClass: "hover:bg-indigo-700", textColorClass: "text-white" },
             ]
         },
 		sections: [
 			{
 				id: "resumen",
-				title: "Resumen Ejecutivo",
-				icon: FileText,
-				iconBgColor: "bg-emerald-100", iconColor: "text-emerald-600", defaultExpanded: true,
+				title: "Propuesta de Valor para Operadores",
+				icon: LineChart,
+				iconBgColor: "bg-blue-100", iconColor: "text-blue-600", defaultExpanded: true,
 				content: {
 					type: "executive-summary",
-					mainParagraph: `Este proyecto propone el desarrollo de un sistema integral para la modernización del transporte público mediante una aplicación móvil que proporcione seguimiento en tiempo real de las unidades, sistema de pagos digitales, y registro de usuarios. La iniciativa busca optimizar la eficiencia del transporte público, mejorar la seguridad de los pasajeros, reducir los tiempos de espera y contribuir a la descongestión vial en zonas urbanas.`,
+					mainParagraph: `Esta plataforma está diseñada para empoderar a los líderes del transporte público en Toluca, ofreciendo herramientas para optimizar la operación diaria, reducir costos significativamente y elevar la calidad del servicio. Mediante el análisis inteligente de datos en tiempo real, identificamos cuellos de botella, ajustamos frecuencias y rutas para una cobertura eficiente de la demanda, y minimizamos los kilómetros recorridos en vacío, impactando directamente su rentabilidad.`,
 					quote: {
-						text: `Según datos del IMCO, la congestión en 32 ciudades mexicanas cuesta 94 mil millones de pesos al año, con usuarios de transporte público perdiendo 118 horas anuales en comparación con las 71 horas que pierden quienes usan automóvil.`,
+						text: `En ciudades con dinámicas similares a Toluca, la optimización de rutas y la gestión inteligente de la demanda han demostrado reducciones de hasta un 15% en costos operativos y mejoras sustanciales en la puntualidad del servicio.`,
+						cite: "Estudios de Movilidad Urbana y Eficiencia Operativa."
 					},
-                    closingParagraph: "Esta propuesta aborda directamente esta problemática con soluciones tecnológicas viables y escalables.",
-					keyPointsTitle: "Puntos Clave",
+                    closingParagraph: "Nuestra solución ofrece una ventaja competitiva tangible, transformando datos en decisiones estratégicas y mayor rentabilidad para su empresa.",
+					keyPointsTitle: "Beneficios Clave para su Operación",
 					keyPoints: [
-						{ title: "Reducción de Tiempo", description: "118 horas anuales perdidas por usuario", icon: createIcon(Clock, 'h-4 w-4 text-emerald-600') },
-						{ title: "Impacto Económico", description: "94 mil millones de pesos anuales en pérdidas", icon: createIcon(DollarSign, 'h-4 w-4 text-emerald-600') },
-						{ title: "Mejora en Seguridad", description: "Sistema de registro y verificación de usuarios", icon: createIcon(UsersIcon, 'h-4 w-4 text-emerald-600') },
-						{ title: "Impacto Ambiental", description: "Reducción de emisiones por optimización", icon: createIcon(Lightbulb, 'h-4 w-4 text-emerald-600') },
+						{ title: "Optimización de Rutas y Frecuencias", description: "Reducción de kilómetros en vacío y mejor cobertura de demanda.", icon: createIcon(Route, 'h-4 w-4 text-blue-600') },
+						{ title: "Reducción de Costos Operativos", description: "Ahorro en combustible, mantenimiento y asignación de personal.", icon: createIcon(Coins, 'h-4 w-4 text-blue-600') },
+						{ title: "Mejora de Calidad de Servicio", description: "Menores tiempos de espera, unidades menos saturadas, mayor puntualidad.", icon: createIcon(UserCheck, 'h-4 w-4 text-blue-600') },
+						{ title: "Decisiones Basadas en Datos", description: "Inteligencia de negocios para ajustes estratégicos y planificación.", icon: createIcon(BrainCircuit, 'h-4 w-4 text-blue-600') },
 					],
 				},
 			},
 			{
 				id: "objetivos",
-				title: "Objetivos del Proyecto",
+				title: "Objetivos de la Plataforma para su Empresa",
 				icon: Target,
 				iconBgColor: "bg-cyan-100", iconColor: "text-cyan-600",
 				content: {
 					type: "objectives",
-					description: `Los siguientes objetivos han sido establecidos para guiar el desarrollo e implementación del sistema, con indicadores de progreso basados en el avance actual del proyecto:`,
+					description: `Los objetivos de esta plataforma están enfocados en generar valor tangible para los operadores de transporte en Toluca, mejorando la eficiencia y la toma de decisiones:`,
 					objectives: [
-                        { id: 'obj1', name: 'Optimizar rutas de transporte', progress: 75, icon: createIcon(Truck, 'h-4 w-4') },
-                        { id: 'obj2', name: 'Implementar pagos digitales', progress: 50, icon: createIcon(CreditCard, 'h-4 w-4') },
-                        { id: 'obj3', name: 'Mejorar seguridad de pasajeros', progress: 25, icon: createIcon(ShieldCheck, 'h-4 w-4') }
+                        { id: 'obj1', name: 'Identificar y Corregir Ineficiencias en Rutas Actuales', progress: 60, icon: createIcon(SlidersHorizontal, 'h-4 w-4') },
+                        { id: 'obj2', name: 'Facilitar el Despacho Dinámico de Unidades según Demanda', progress: 40, icon: createIcon(Zap, 'h-4 w-4') },
+                        { id: 'obj3', name: 'Proveer Analítica Avanzada para la Gestión Estratégica de Flotillas', progress: 30, icon: createIcon(BarChartIcon, 'h-4 w-4') }
 					],
-					successCriteriaBoxTitle: "Criterios de Éxito",
-                    successCriteriaBoxIcon: createIcon(CheckCircleMain, 'h-5 w-5 text-cyan-600'),
+					successCriteriaBoxTitle: "Indicadores Clave de Éxito (KPIs)",
+                    successCriteriaBoxIcon: createIcon(ListChecks, 'h-5 w-5 text-cyan-600'),
 					successCriteria: [
-						{ title: "Reducción de tiempos de espera", description: "Disminución del 40% en tiempos de espera promedio", icon: createIcon(CheckSquare, 'h-4 w-4 text-cyan-600') },
-						{ title: "Adopción de usuarios", description: "50% de usuarios de transporte utilizando la aplicación", icon: createIcon(CheckSquare, 'h-4 w-4 text-cyan-600') },
-						{ title: "Satisfacción de usuarios", description: "Calificación promedio de 4.5/5 en la aplicación", icon: createIcon(CheckSquare, 'h-4 w-4 text-cyan-600') },
-						{ title: "Reducción de congestión", description: "Disminución del 15% en congestión vial en zonas clave", icon: createIcon(CheckSquare, 'h-4 w-4 text-cyan-600') },
+						{ title: "Reducción de Tiempos de Espera", description: "Disminución del 15-20% en tiempos de espera promedio en rutas piloto durante horas pico.", icon: createIcon(Clock, 'h-4 w-4 text-cyan-600') },
+						{ title: "Optimización de Kilometraje", description: "Disminución del 5-10% en kilómetros recorridos en vacío por las unidades.", icon: createIcon(Truck, 'h-4 w-4 text-cyan-600') },
+						{ title: "Aumento de Puntualidad", description: "Mejora del 10-15% en la puntualidad del servicio en rutas intervenidas.", icon: createIcon(CalendarClock, 'h-4 w-4 text-cyan-600') },
+						{ title: "Adopción de Herramientas", description: "Uso activo de la plataforma por el 80% del personal de planificación y despacho.", icon: createIcon(UsersRoundIcon, 'h-4 w-4 text-cyan-600') },
 					],
 				},
 			},
             {
                 id: "alcance",
-                title: "Alcance del Proyecto",
-                icon: Compass,
+                title: "Componentes y Entregables de la Plataforma",
+                icon: Layers,
                 iconBgColor: "bg-violet-100", iconColor: "text-violet-600",
                 content: {
                     type: "scope",
-                    componentsTitle: "Componentes del Sistema",
+                    componentsTitle: "Módulos de la Plataforma de Optimización",
                     components: [
-                        { title: "Aplicación Móvil", description: "Desarrollo de aplicación para usuarios finales en Android e iOS con seguimiento en tiempo real, pagos digitales y sistema de alertas.", icon: createIcon(Smartphone, 'h-6 w-6') },
-                        { title: "Plataforma Web", description: "Portal de administración para operadores de transporte con monitoreo de unidades, gestión de rutas y análisis de datos.", icon: createIcon(Globe, 'h-6 w-6') },
-                        { title: "Sistema de Geolocalización", description: "Infraestructura para seguimiento en tiempo real de unidades mediante GPS y transmisión de datos a la plataforma central.", icon: createIcon(MapPin, 'h-6 w-6') },
-                        { title: "Sistema de Pagos", description: "Pasarela de pagos digitales y modelo de suscripción para usuarios frecuentes con múltiples métodos de pago.", icon: createIcon(CreditCard, 'h-6 w-6') }
+                        { title: "Módulo de Monitoreo y Análisis en Tiempo Real", description: "Visualización del estado de la flota, identificación de aglomeraciones, alertas de desviación y patrones de demanda emergentes para operadores.", icon: createIcon(MapPin, 'h-6 w-6') },
+                        { title: "Módulo de Planificación y Optimización de Rutas", description: "Herramientas para simular ajustes en rutas y frecuencias, evaluar impacto y optimizar horarios basados en datos históricos y predictivos.", icon: createIcon(Route, 'h-6 w-6') },
+                        { title: "Dashboard de Inteligencia de Negocios (BI)", description: "Indicadores clave de rendimiento (KPIs) personalizables, reportes de eficiencia operativa, costos, y patrones de uso para la toma de decisiones gerenciales.", icon: createIcon(BarChartBig, 'h-6 w-6') },
+                        { title: "Aplicación para Conductores (Opcional)", description: "Canal de comunicación para recibir instrucciones de despacho optimizadas, reportar incidentes y registrar tiempos de manera eficiente (requiere análisis de viabilidad adicional).", icon: createIcon(Smartphone, 'h-6 w-6') } // MODIFIED
                     ],
-                    deliverablesTitle: "Entregables Principales",
+                    deliverablesTitle: "Entregables Clave para su Operación",
                     deliverables: [
                         {
-                            phaseTitle: "Fase 1: Desarrollo de Software",
+                            phaseTitle: "Fase 1: Diagnóstico y Configuración Inicial (2-4 semanas)",
                             items: [
-                                { text: "Aplicación móvil funcional (iOS y Android)", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-violet-500') },
-                                { text: "Backend robusto con APIs documentadas", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-violet-500') },
-                                { text: "Portal web de administración", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-violet-500') }
+                                { text: "Integración con sistemas GPS existentes y recolección de datos inicial.", icon: createIcon(Zap, 'h-5 w-5 text-violet-500') },
+                                { text: "Dashboard de diagnóstico con KPIs básicos de la operación actual.", icon: createIcon(BarChartHorizontal, 'h-5 w-5 text-violet-500') },
+                                { text: "Identificación de 2-3 rutas piloto para intervención.", icon: createIcon(Filter, 'h-5 w-5 text-violet-500') }
                             ]
                         },
                         {
-                            phaseTitle: "Fase 2: Hardware e Infraestructura",
+                            phaseTitle: "Fase 2: Implementación Piloto y Optimización (6-8 semanas)",
                             items: [
-                                { text: "Dispositivos IoT para unidades de transporte", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-violet-500') },
-                                { text: "Infraestructura cloud para procesamiento de datos", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-violet-500') }
+                                { text: "Plataforma configurada con módulos de monitoreo y planificación para rutas piloto.", icon: createIcon(Settings2, 'h-5 w-5 text-violet-500') },
+                                { text: "Primer ciclo de recomendaciones de optimización y análisis de impacto.", icon: createIcon(Lightbulb, 'h-5 w-5 text-violet-500') },
+                                { text: "Capacitación inicial para personal de despacho y planificación.", icon: createIcon(UsersIcon, 'h-5 w-5 text-violet-500') }
                             ]
                         }
                     ]
@@ -144,46 +145,44 @@ class ProjectDataStore {
             },
             {
                 id: "factibilidad-tecnica",
-                title: "Análisis de Factibilidad Técnica",
+                title: "Viabilidad Técnica de la Plataforma",
                 icon: Wrench,
                 iconBgColor: "bg-blue-100", iconColor: "text-blue-600",
                 content: {
                     type: "technical-feasibility",
-                    technologiesTitle: "Tecnologías Requeridas",
+                    technologiesTitle: "Tecnologías Clave de la Plataforma",
                     technologiesTitleIcon: createIcon(Server, 'h-5 w-5 text-blue-600'),
-                    technologies: [
-                        { name: 'Svelte-Kit', category: 'Frontend', description: 'Framework para desarrollo de aplicaciones web', level: 'Alto', icon: createIcon(FileText, 'h-4 w-4 text-blue-600') },
-                        { name: 'Tailwind CSS', category: 'Frontend', description: 'Framework CSS para diseño responsivo', level: 'Alto', icon: createIcon(FileText, 'h-4 w-4 text-blue-600') },
-                        { name: 'Deno', category: 'Backend', description: 'Entorno de ejecución para JavaScript y TypeScript', level: 'Alto', icon: createIcon(Server, 'h-4 w-4 text-blue-600') }, // Changed icon to Server for backend
-                        { name: 'PostgreSQL', category: 'Base de Datos', description: 'Para datos geoespaciales y relacionales', level: 'Medio', icon: createIcon(Database, 'h-4 w-4 text-blue-600') },
-                        { name: 'Google Maps API', category: 'Servicios', description: 'Para geolocalización y mapeo de rutas', level: 'Alto', icon: createIcon(Globe, 'h-4 w-4 text-blue-600') },
-                        { name: 'Stripe/PayPal', category: 'Pagos', description: 'Para procesamiento de pagos digitales', level: 'Medio', icon: createIcon(CreditCard, 'h-4 w-4 text-blue-600') },
-                        { name: 'GPS/IoT', category: 'Hardware', description: 'Dispositivos para rastreo de unidades', level: 'Alto', icon: createIcon(Cpu, 'h-4 w-4 text-blue-600') },
-                        { name: 'AWS/Google Cloud', category: 'Infraestructura', description: 'Para alojamiento y escalabilidad', level: 'Alto', icon: createIcon(Cloud, 'h-4 w-4 text-blue-600') }
+                    technologies: [ // Descriptions can be slightly tweaked for operator understanding
+                        { name: 'Svelte-Kit & Tailwind CSS', category: 'Frontend (Paneles de Control)', description: 'Interfaces web interactivas y responsivas para el monitoreo y gestión por parte de los operadores.', level: 'Alto', icon: createIcon(Globe, 'h-4 w-4 text-blue-600') },
+                        { name: 'Deno/Rust (Axum)', category: 'Backend (Procesamiento de Datos)', description: 'Motores de alta eficiencia para el procesamiento en tiempo real de datos de geolocalización y algoritmos de optimización.', level: 'Alto', icon: createIcon(Cpu, 'h-4 w-4 text-blue-600') },
+                        { name: 'PostgreSQL + PostGIS', category: 'Base de Datos', description: 'Almacenamiento robusto y consultoría eficiente de grandes volúmenes de datos geoespaciales y series temporales.', level: 'Medio', icon: createIcon(Database, 'h-4 w-4 text-blue-600') },
+                        { name: 'Algoritmos de Optimización', category: 'Inteligencia Artificial', description: 'Modelos matemáticos para la optimización de rutas, frecuencias y asignación de unidades.', level: 'Medio', icon: createIcon(BrainCircuit, 'h-4 w-4 text-blue-600') },
+                        { name: 'APIs de Mapas (e.g., Mapbox, Google Maps)', category: 'Visualización y Geocodificación', description: 'Para representación visual de rutas, unidades y puntos de interés; cálculo de distancias y tiempos.', level: 'Alto', icon: createIcon(MapPin, 'h-4 w-4 text-blue-600') },
+                        { name: 'Cloud Hosting (AWS/Azure/GCP)', category: 'Infraestructura', description: 'Alojamiento escalable y seguro para la plataforma, garantizando alta disponibilidad y capacidad de procesamiento.', level: 'Alto', icon: createIcon(Cloud, 'h-4 w-4 text-blue-600') }
                     ],
-                    viabilityTitle: "Viabilidad Técnica",
+                    viabilityTitle: "Factibilidad de Implementación Técnica",
                     viabilityTitleIcon: createIcon(CheckCircleMain, 'h-5 w-5 text-blue-600'),
-                    viabilityIntro: "El proyecto es técnicamente viable utilizando tecnologías maduras y ampliamente probadas. Las principales consideraciones técnicas incluyen:",
+                    viabilityIntro: "La plataforma se basa en tecnologías probadas y adaptables, con las siguientes consideraciones clave para su implementación en Toluca:",
                     viabilityPoints: [
-                        { title: "Precisión de geolocalización", description: "En áreas urbanas densas con edificios altos", icon: createIcon(LocateFixed, 'h-4 w-4 text-blue-600') },
-                        { title: "Sincronización en tiempo real", description: "Entre múltiples dispositivos y servidores", icon: createIcon(Zap, 'h-4 w-4 text-blue-600') },
-                        { title: "Manejo de picos de tráfico", description: "Durante horas de mayor demanda", icon: createIcon(BarChartHorizontal, 'h-4 w-4 text-blue-600') }
+                        { title: "Integración con Sistemas GPS Existentes", description: "Capacidad de ingesta de datos de diversos proveedores de GPS utilizados por las flotillas locales.", icon: createIcon(Zap, 'h-4 w-4 text-blue-600') },
+                        { title: "Escalabilidad para Múltiples Unidades y Rutas", description: "Arquitectura diseñada para manejar el volumen de datos de la operación de transporte de Toluca.", icon: createIcon(Layers, 'h-4 w-4 text-blue-600') },
+                        { title: "Seguridad de Datos Operativos", description: "Protocolos robustos para proteger la información sensible de rutas, unidades y pasajeros.", icon: createIcon(ShieldCheck, 'h-4 w-4 text-blue-600') }
                     ],
-                    resourcesTitle: "Disponibilidad de Recursos",
-                    resourcesTitleIcon: createIcon(UsersRound, 'h-5 w-5 text-blue-600'),
-                    resourcesIntro: "Se requiere un equipo multidisciplinario con experiencia en diversas áreas técnicas:",
+                    resourcesTitle: "Equipo y Soporte",
+                    resourcesTitleIcon: createIcon(UsersRoundIcon, 'h-5 w-5 text-blue-600'),
+                    resourcesIntro: "Contamos con un equipo multidisciplinario y la posibilidad de colaborar con talento de la UAEMéx para:",
                     resourcePoints: [
-                        { text: "Desarrollo móvil (Svelte-Kit + Tauri2)", icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-blue-500')},
-                        { text: "Desarrollo backend (Rust: Axum)", icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-blue-500')},
-                        { text: "Bases de datos (PostgreSQL)", icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-blue-500')},
-                        { text: "Geolocalización y mapas (Google Maps API)", icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-blue-500')}
+                        { text: "Análisis de datos de transporte y modelado.", icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-blue-500')},
+                        { text: "Desarrollo de software (Frontend y Backend).", icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-blue-500')},
+                        { text: "Implementación y soporte técnico de la plataforma.", icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-blue-500')},
+                        { text: "Capacitación especializada para su personal.", icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-blue-500')}
                     ],
-                    resourcesNote: "Nota: La Universidad cuenta con talento en estas áreas a través de estudiantes avanzados y personal docente de la Licenciatura de Ingeniería en Computación, quienes pueden aportar al desarrollo bajo supervisión adecuada."
+                    resourcesNote: "La colaboración con la UAEMéx puede ofrecer acceso a investigación aplicada y talento joven para la personalización y evolución de la plataforma a costos competitivos."
                 }
             },
             {
                 id: "factibilidad-economica",
-                title: "Análisis de Factibilidad Económica",
+                title: "Análisis de Inversión y Retorno para Operadores",
                 icon: DollarSign,
                 iconBgColor: "bg-green-100", iconColor: "text-green-600",
                 content: {
@@ -191,364 +190,347 @@ class ProjectDataStore {
                     tabs: [
                         {
                             id: 'costs',
-                            tabTitle: 'Costos',
-                            tabIcon: createIcon(DollarSign, 'h-4 w-4 mr-1'),
-                            contentTitle: 'Costos Estimados del Proyecto',
-                            items: [
-                                { name: 'Desarrollo de software', amount: 2500000, percentage: 35 },
-                                { name: 'Hardware (GPS/IoT)', amount: 1800000, percentage: 25 },
-                                { name: 'Infraestructura cloud', amount: 900000, percentage: 13 },
-                                { name: 'Licencias', amount: 700000, percentage: 10 },
-                                { name: 'Marketing y capacitación', amount: 600000, percentage: 8 },
-                                { name: 'Soporte y mantenimiento', amount: 650000, percentage: 9 }
+                            tabTitle: 'Inversión',
+                            tabIcon: createIcon(Coins, 'h-4 w-4 mr-1'),
+                            contentTitle: 'Inversión Estimada en la Plataforma (Modelo SaaS o Licencia)',
+                            items: [ // These costs would shift towards software, services, and customization
+                                { name: 'Configuración Inicial y Personalización', amount: 150000, percentage: 25 },
+                                { name: 'Licencia Anual / Suscripción Mensual (SaaS)', amount: 300000, percentage: 50 },
+                                { name: 'Capacitación y Soporte Continuo', amount: 100000, percentage: 17 },
+                                { name: 'Integración con Sistemas Existentes', amount: 50000, percentage: 8 }
                             ],
-                            totalLabel: 'Costo Total Estimado:'
+                            totalLabel: 'Inversión Anualizada Estimada (Ejemplo):'
                         },
                         {
                             id: 'benefits',
-                            tabTitle: 'Beneficios',
+                            tabTitle: 'Retornos',
                             tabIcon: createIcon(TrendingUp, 'h-4 w-4 mr-1'),
-                            contentTitle: 'Beneficios Económicos Esperados',
-                            items: [
-                                { name: 'Reducción de costos operativos', amount: 1200000, percentage: 20 },
-                                { name: 'Aumento de ingresos', amount: 1800000, percentage: 30 },
-                                { name: 'Ingresos por suscripciones', amount: 1500000, percentage: 25 },
-                                { name: 'Reducción de pérdidas', amount: 900000, percentage: 15 },
-                                { name: 'Valor social', amount: 600000, percentage: 10 }
+                            contentTitle: 'Beneficios Económicos y Retornos para su Operación',
+                            items: [ // Focus on operator savings and revenue
+                                { name: 'Ahorro por Optimización de Combustible (5-10%)', amount: 200000, percentage: 30 }, // Example value
+                                { name: 'Reducción de Costos de Mantenimiento (3-7%)', amount: 150000, percentage: 25 }, // Example value
+                                { name: "Optimización de Asignación de Personal y Unidades", amount: 100000, percentage: 15 }, // Example value
+                                { name: 'Aumento Potencial de Ingresos por Mejor Servicio (2-5%)', amount: 100000, percentage: 15 }, // Example value
+                                { name: 'Reducción de Penalizaciones (si aplica)', amount: 50000, percentage: 15 } // Example value
                             ],
-                            totalLabel: 'Beneficio Anual Estimado:',
-                            note: `Nota: Basado en datos del IMCO, que estima que la congestión en ciudades mexicanas
-                            cuesta 94 mil millones de pesos anuales, una reducción del 10% en tiempos de espera y congestión
-                            podría representar un ahorro de aproximadamente 9.4 mil millones de pesos a nivel nacional.`
+                            totalLabel: 'Beneficio Anual Estimado (Ejemplo):',
+                            note: `Nota: Los ahorros y beneficios se basan en eficiencias típicas observadas en implementaciones similares. Un análisis personalizado con sus datos operativos permitirá una proyección más precisa para su flotilla en Toluca.`
                         },
                         {
                             id: 'roi',
                             tabTitle: 'ROI',
                             tabIcon: createIcon(BarChartIcon, 'h-4 w-4 mr-1'),
-                            contentTitle: 'Retorno de Inversión Proyectado',
-                            roiChartData: [
-                                { yearLabel: 'Año 1', value: -4000000, formattedValue: formatCurrency(-4000000) },
-                                { yearLabel: 'Año 2', value: -1500000, formattedValue: formatCurrency(-1500000) },
-                                { yearLabel: 'Año 3', value: 1000000, formattedValue: formatCurrency(1000000) },
-                                { yearLabel: 'Año 4', value: 3500000, formattedValue: formatCurrency(3500000) },
-                                { yearLabel: 'Año 5', value: 6000000, formattedValue: formatCurrency(6000000) }
+                            contentTitle: 'Proyección de Retorno de Inversión (Ejemplo para una Flotilla Mediana)',
+                            roiChartData: [ // Adjust values based on new cost/benefit
+                                { yearLabel: 'Año 1', value: -250000, formattedValue: formatCurrency(-250000) }, // Lower initial net cost due to faster benefits
+                                { yearLabel: 'Año 2', value: 150000, formattedValue: formatCurrency(150000) },
+                                { yearLabel: 'Año 3', value: 400000, formattedValue: formatCurrency(400000) },
+                                { yearLabel: 'Año 4', value: 600000, formattedValue: formatCurrency(600000) },
+                                { yearLabel: 'Año 5', value: 800000, formattedValue: formatCurrency(800000) }
                             ],
                             roiSummaryItems: [
-                                { label: 'Inversión Inicial:', value: formatCurrency(4000000), valueColorClass: 'text-red-600' },
-                                { label: 'Punto de Equilibrio:', value: 'Año 3' },
-                                { label: 'ROI a 5 años:', value: '150%', valueColorClass: 'text-green-600' }
+                                { label: 'Inversión Inicial (Config. + Parte Anual):', value: formatCurrency(200000), valueColorClass: 'text-red-600' }, // Example
+                                { label: 'Punto de Equilibrio Estimado:', value: 'Dentro del Año 2' },
+                                { label: 'ROI Proyectado a 3 años:', value: '>200%', valueColorClass: 'text-green-600' }
                             ]
                         }
                     ],
                     funding: {
-                        title: 'Fuentes de Financiamiento',
-                        titleIcon: createIcon(PiggyBank, 'h-5 w-5 text-green-600'),
-                        publicTitle: 'Fondos Públicos',
-                        publicSources: [
-                            { text: "Fondos metropolitanos para movilidad", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') },
-                            { text: "Programas federales para desarrollo urbano", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') },
-                            { text: "Inversión de gobiernos locales", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') }
+                        title: 'Modelos de Colaboración y Adquisición',
+                        titleIcon: createIcon(HandCoins, 'h-5 w-5 text-green-600'),
+                        publicTitle: 'Modelos Flexibles',
+                        publicSources: [ // Reframe as commercial models
+                            { text: "Modelo de Suscripción (SaaS) con pagos mensuales/anuales.", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') },
+                            { text: "Licencia de Plataforma con personalización y soporte.", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') },
+                            { text: "Proyecto Piloto Cofinanciado para demostración de valor.", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') }
                         ],
-                        privateTitle: 'Fondos Privados',
-                        privateSources: [
-                            { text: "Alianzas público-privadas con operadores", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') },
-                            { text: "Inversión de empresas de tecnología", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') },
-                            { text: "Fondos universitarios para investigación", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') }
+                        privateTitle: 'Opciones de Implementación',
+                        privateSources: [ // Reframe as service options
+                            { text: "Implementación y configuración llave en mano.", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') },
+                            { text: "Consultoría para integración con sus sistemas existentes.", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') },
+                            { text: "Soporte técnico continuo y actualizaciones de plataforma.", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') }
                         ]
                     }
                 }
             },
             {
                 id: "factibilidad-operativa",
-                title: "Análisis de Factibilidad Operativa",
-                icon: UsersIcon,
+                title: "Integración Operativa en su Empresa",
+                icon: Settings2,
                 iconBgColor: "bg-amber-100", iconColor: "text-amber-600",
                 content: {
                   type: "operative-feasibility",
-                  orgChangesTitle: "Cambios Organizacionales",
+                  orgChangesTitle: "Adaptación Operativa para la Optimización Inteligente",
                   orgChangesIcon: createIcon(GitBranch, 'h-5 w-5 text-amber-600'),
                   orgChangesItems: [
                     {
-                      title: "Capacitación de Personal",
-                      description: "Conductores y personal administrativo requerirán capacitación en el uso de nuevas tecnologías y procedimientos operativos.",
+                      title: "Capacitación del Personal de Despacho y Planificación",
+                      description: "Programas de formación para el uso efectivo de la plataforma, interpretación de datos y aplicación de recomendaciones de optimización.",
                       icon: createIcon(UsersIcon, 'h-4 w-4 text-amber-600')
                     },
                     {
-                      title: "Procedimientos de Cobro",
-                      description: "Adaptación de métodos de cobro tradicionales a un sistema digital integrado con múltiples opciones de pago.",
-                      icon: createIcon(CreditCard, 'h-4 w-4 text-amber-600')
+                      title: "Ajuste de Protocolos de Toma de Decisiones",
+                      description: "Incorporación de los insights de la plataforma en los procesos diarios de asignación de unidades, ajuste de rutas y gestión de incidentes.",
+                      icon: createIcon(ClipboardList, 'h-4 w-4 text-amber-600')
                     },
                     {
-                      title: "Mantenimiento Técnico",
-                      description: "Nuevos protocolos para el mantenimiento de dispositivos GPS y módulos de transmisión instalados en las unidades.",
-                      icon: createIcon(Wrench, 'h-4 w-4 text-amber-600')
-                    }
-                  ],
-                  adoptionStrategiesTitle: "Estrategias de Adopción",
-                  adoptionStrategiesIcon: createIcon(ThumbsUp, 'h-5 w-5 text-amber-600'),
-                  adoptionStrategiesItems: [
-                    {
-                      title: "Implementación Gradual",
-                      description: "Comenzando con rutas de mayor demanda",
-                      icon: createIcon(Layers, 'h-4 w-4 text-amber-600')
-                    },
-                    {
-                      title: "Incentivos para Usuarios",
-                      description: "Descuentos y viajes gratuitos promocionales",
-                      icon: createIcon(Award, 'h-4 w-4 text-amber-600')
-                    },
-                    {
-                      title: "Campañas Educativas",
-                      description: "Información sobre beneficios del sistema",
-                      icon: createIcon(Lightbulb, 'h-4 w-4 text-amber-600')
-                    },
-                    {
-                      title: "Alternativas Tecnológicas",
-                      description: "Tarjetas físicas para usuarios sin smartphones",
+                      title: "Comunicación con Conductores (si aplica App)",
+                      description: "Establecimiento de canales y protocolos para la comunicación de ajustes de ruta o despacho dinámico a los conductores.",
                       icon: createIcon(Smartphone, 'h-4 w-4 text-amber-600')
                     }
                   ],
-                  resistanceAnalysisTitle: "Resistencia al Cambio",
-                  resistanceAnalysisIcon: createIcon(ThumbsDown, 'h-5 w-5 text-amber-600'),
-                  resistanceSourcesTitle: "Fuentes de Resistencia",
+                  adoptionStrategiesTitle: "Estrategias para una Adopción Exitosa en su Organización",
+                  adoptionStrategiesIcon: createIcon(ThumbsUp, 'h-5 w-5 text-amber-600'),
+                  adoptionStrategiesItems: [
+                    {
+                      title: "Implementación Piloto en Rutas Seleccionadas",
+                      description: "Demostrar el valor de la plataforma en un entorno controlado y obtener retroalimentación temprana de su equipo.",
+                      icon: createIcon(Route, 'h-4 w-4 text-amber-600')
+                    },
+                    {
+                      title: "Acompañamiento y Soporte Técnico Dedicado",
+                      description: "Asistencia continua durante la implementación y operación para resolver dudas y asegurar el máximo aprovechamiento.",
+                      icon: createIcon(UserCheck, 'h-4 w-4 text-amber-600')
+                    },
+                    {
+                      title: "Dashboards Personalizados a sus KPIs",
+                      description: "Adaptación de los tableros de control para reflejar los indicadores más relevantes para su gestión y objetivos.",
+                      icon: createIcon(BarChartIcon, 'h-4 w-4 text-amber-600')
+                    },
+                    {
+                      title: "Involucramiento del Personal Clave",
+                      description: "Participación de despachadores y planificadores en la configuración y pruebas para fomentar la apropiación.",
+                      icon: createIcon(UsersRoundIcon, 'h-4 w-4 text-amber-600')
+                    }
+                  ],
+                  resistanceAnalysisTitle: "Gestión del Cambio y Adopción Interna",
+                  resistanceAnalysisIcon: createIcon(MessageSquareWarning, 'h-5 w-5 text-amber-600'),
+                  resistanceSourcesTitle: "Posibles Puntos de Fricción",
                   resistanceSourcesIcon: createIcon(XSquare, 'h-4 w-4 text-amber-600'),
                   resistanceSourcePoints: [
-                    { text: "Operadores de transporte reacios a implementar nuevas tecnologías", icon: createIcon(XCircle, 'w-2 h-2 rounded-full bg-amber-500 mt-2') }, // Used XCircle for specific bullet
-                    { text: "Usuarios sin acceso a smartphones o datos móviles", icon: createIcon(XCircle, 'w-2 h-2 rounded-full bg-amber-500 mt-2') },
-                    { text: "Preocupaciones sobre privacidad y uso de datos personales", icon: createIcon(XCircle, 'w-2 h-2 rounded-full bg-amber-500 mt-2') }
+                    { text: "Resistencia del personal de despacho a nuevas herramientas o procesos.", icon: createIcon(XCircle, 'w-2 h-2 rounded-full bg-amber-500 mt-2') },
+                    { text: "Preocupaciones de conductores sobre el monitoreo o cambios en rutinas (si aplica App).", icon: createIcon(XCircle, 'w-2 h-2 rounded-full bg-amber-500 mt-2') },
+                    { text: "Inercia en los procesos operativos establecidos y dificultad para adaptarse.", icon: createIcon(XCircle, 'w-2 h-2 rounded-full bg-amber-500 mt-2') }
                   ],
-                  mitigationStrategiesTitle: "Estrategias de Mitigación",
-                  mitigationStrategiesIcon: createIcon(CheckCircle2, 'h-4 w-4 text-amber-600'),
+                  mitigationStrategiesTitle: "Estrategias de Facilitación del Cambio",
+                  mitigationStrategiesIcon: createIcon(CheckCircle2, 'h-4 w-4 text-green-600'),
                   mitigationStrategyPoints: [
-                    { text: "Programas de capacitación inclusivos y accesibles", icon: createIcon(CheckCircle, 'w-2 h-2 rounded-full bg-green-500 mt-2') }, // Used CheckCircle for specific bullet
-                    { text: "Alternativas para usuarios sin acceso a tecnología", icon: createIcon(CheckCircle, 'w-2 h-2 rounded-full bg-green-500 mt-2') },
-                    { text: "Políticas claras de privacidad y protección de datos", icon: createIcon(CheckCircle, 'w-2 h-2 rounded-full bg-green-500 mt-2') }
+                    { text: "Comunicación clara y continua de los beneficios directos para cada rol y para la empresa.", icon: createIcon(CheckCircle, 'w-2 h-2 rounded-full bg-green-500 mt-2') },
+                    { text: "Programas de incentivos (no necesariamente monetarios) ligados a la adopción y mejoras de eficiencia.", icon: createIcon(CheckCircle, 'w-2 h-2 rounded-full bg-green-500 mt-2') },
+                    { text: "Demostraciones prácticas y capacitación hands-on para generar confianza en la herramienta.", icon: createIcon(CheckCircle, 'w-2 h-2 rounded-full bg-green-500 mt-2') }
                   ],
-                  stakeholderImpactTitle: "Análisis de Impacto en Stakeholders",
-                  stakeholderImpactIcon: createIcon(Lightbulb, 'h-5 w-5 text-amber-600'),
-                  stakeholderImpactTableHeaders: ["Grupo", "Impacto", "Nivel de Resistencia", "Estrategia"],
-                  stakeholderImpactRows: [
-                    { group: "Conductores", impact: "Alto", resistanceLevel: "Alto", resistanceBadgeClass: "bg-red-100 text-red-700", strategy: "Capacitación y beneficios directos" },
-                    { group: "Usuarios jóvenes", impact: "Medio", resistanceLevel: "Bajo", resistanceBadgeClass: "bg-green-100 text-green-700", strategy: "Experiencia de usuario intuitiva" },
-                    { group: "Adultos mayores", impact: "Medio", resistanceLevel: "Alto", resistanceBadgeClass: "bg-red-100 text-red-700", strategy: "Alternativas no digitales y asistencia" }
+                  stakeholderImpactTitle: "Impacto en Roles Clave de su Empresa",
+                  stakeholderImpactIcon: createIcon(UsersIcon, 'h-5 w-5 text-amber-600'),
+                  stakeholderImpactTableHeaders: ["Rol en la Empresa", "Impacto Potencial", "Nivel de Adaptación", "Estrategia de Soporte"],
+                  stakeholderImpactRows: [ // Focus on internal roles
+                    { group: "Gerentes de Operación", impact: "Alto (Visibilidad y Control)", resistanceLevel: "Bajo", resistanceBadgeClass: "bg-green-100 text-green-700", strategy: "Dashboards estratégicos, reportes KPI." },
+                    { group: "Personal de Despacho", impact: "Alto (Nuevas Herramientas)", resistanceLevel: "Medio", resistanceBadgeClass: "bg-amber-100 text-amber-700", strategy: "Capacitación intensiva, soporte directo, co-diseño de interfaz." },
+                    { group: "Jefes de Ruta/Flotilla", impact: "Medio (Optimización Rutas)", resistanceLevel: "Medio", resistanceBadgeClass: "bg-amber-100 text-amber-700", strategy: "Herramientas de simulación, análisis de escenarios." },
+                    { group: "Conductores (Indirecto/App Opcional)", impact: "Medio (Posibles cambios de rutina)", resistanceLevel: "Medio", resistanceBadgeClass: "bg-amber-100 text-amber-700", strategy: "Comunicación clara de beneficios, canal de feedback." }
                   ]
                 }
               },
             {
                 id: "riesgos",
-                title: "Análisis de Riesgos",
+                title: "Análisis de Riesgos de Implementación",
                 icon: AlertTriangleMain,
                 iconBgColor: "bg-red-100", iconColor: "text-red-600",
                 content: {
                     type: "risks",
-                    riskCategories: [ // Using categories for tabs
+                    riskCategories: [ 
                         {
-                            id: 'tecnico',
-                            title: 'Técnico',
+                            id: 'tecnico_integracion',
+                            title: 'Técnicos y de Integración',
                             icon: createIcon(Server, 'h-4 w-4 mr-2'),
                             risks: [
-                                { name: 'Problemas de precisión GPS', impact: 'Alto', probability: 'Medio', category: 'Técnico', mitigation: 'Algoritmos de corrección y triangulación' },
-                                { name: 'Fallos de conectividad', impact: 'Alto', probability: 'Alto', category: 'Técnico', mitigation: 'Implementación de modo offline y sincronización posterior' },
+                                { name: 'Incompatibilidad con sistemas GPS existentes', impact: 'Alto', probability: 'Medio', category: 'Técnico', mitigation: 'Análisis previo de APIs de GPS, desarrollo de adaptadores flexibles.' },
+                                { name: 'Calidad deficiente de datos GPS (precisión, frecuencia)', impact: 'Alto', probability: 'Medio', category: 'Técnico', mitigation: 'Algoritmos de limpieza y validación de datos, recomendar mejoras en hardware si es necesario.' },
+                                { name: 'Retrasos en la configuración e integración inicial', impact: 'Medio', probability: 'Alto', category: 'Implementación', mitigation: 'Plan de proyecto detallado, equipo de implementación dedicado, fases claras.'}
                             ]
                         },
                         {
-                            id: 'mercado',
-                            title: 'Mercado',
-                            icon: createIcon(TrendingUp, 'h-4 w-4 mr-2'),
+                            id: 'adopcion_operacion',
+                            title: 'Adopción y Operación',
+                            icon: createIcon(UsersIcon, 'h-4 w-4 mr-2'),
                             risks: [
-                                { name: 'Baja adopción', impact: 'Alto', probability: 'Medio', category: 'Mercado', mitigation: 'Estrategia de incentivos y campaña de concientización' },
-                                { name: 'Desinterés de operadores', impact: 'Alto', probability: 'Alto', category: 'Mercado', mitigation: 'Demostración de beneficios económicos y operativos' },
+                                { name: 'Baja adopción de la plataforma por el personal clave', impact: 'Alto', probability: 'Medio', category: 'Operacional', mitigation: 'Estrategias de gestión del cambio, capacitación robusta, involucramiento temprano del personal.' },
+                                { name: 'Resistencia a modificar procesos operativos establecidos', impact: 'Medio', probability: 'Alto', category: 'Operacional', mitigation: 'Demostración clara de beneficios (ROI), implementación gradual, soporte en la transición.' },
+                                { name: 'Dependencia de conectividad para datos en tiempo real', impact: 'Medio', probability: 'Medio', category: 'Operacional', mitigation: 'Mecanismos de buffering de datos en unidades, análisis diferido para zonas sin cobertura.'} // NEW
                             ]
                         },
                         {
-                            id: 'implementacion',
-                            title: 'Implementación',
-                            icon: createIcon(Wrench, 'h-4 w-4 mr-2'),
+                            id: 'externos_negocio',
+                            title: 'Externos y de Negocio',
+                            icon: createIcon(Briefcase, 'h-4 w-4 mr-2'),
                             risks: [
-                                { name: 'Retrasos en desarrollo', impact: 'Medio', probability: 'Alto', category: 'Implementación', mitigation: 'Metodología ágil con entregas incrementales' }
+                                { name: 'Cambios en la regulación del transporte que afecten la operación', impact: 'Bajo', probability: 'Medio', category: 'Externo', mitigation: 'Plataforma adaptable a nuevos parámetros operativos y de reporte.' }, // NEW
+                                { name: 'No alcanzar los ahorros o beneficios proyectados rápidamente', impact: 'Medio', probability: 'Medio', category: 'Negocio', mitigation: 'Definición de KPIs realistas, ajustes continuos basados en datos, gestión de expectativas.'} // NEW
                             ]
                         }
                     ],
-                    // A flat list of all risks to be passed to RiskMatrix, if different from categorized
-                    allRisks: [
-                        { name: 'Problemas de precisión GPS', impact: 'Alto', probability: 'Medio', category: 'Técnico', mitigation: 'Algoritmos de corrección y triangulación' },
-                        { name: 'Fallos de conectividad', impact: 'Alto', probability: 'Alto', category: 'Técnico', mitigation: 'Implementación de modo offline y sincronización posterior' },
-                        { name: 'Baja adopción', impact: 'Alto', probability: 'Medio', category: 'Mercado', mitigation: 'Estrategia de incentivos y campaña de concientización' },
-                        { name: 'Desinterés de operadores', impact: 'Alto', probability: 'Alto', category: 'Mercado', mitigation: 'Demostración de beneficios económicos y operativos' },
-                        { name: 'Retrasos en desarrollo', impact: 'Medio', probability: 'Alto', category: 'Implementación', mitigation: 'Metodología ágil con entregas incrementales' }
+                    allRisks: [ // Update this list to reflect the new categorized risks
+                        { name: 'Incompatibilidad con sistemas GPS existentes', impact: 'Alto', probability: 'Medio', category: 'Técnico', mitigation: 'Análisis previo de APIs de GPS, desarrollo de adaptadores flexibles.' },
+                        { name: 'Calidad deficiente de datos GPS', impact: 'Alto', probability: 'Medio', category: 'Técnico', mitigation: 'Algoritmos de limpieza y validación de datos, recomendar mejoras en hardware si es necesario.' },
+                        { name: 'Retrasos en la configuración inicial', impact: 'Medio', probability: 'Alto', category: 'Implementación', mitigation: 'Plan de proyecto detallado, equipo de implementación dedicado, fases claras.'},
+                        { name: 'Baja adopción de la plataforma por el personal', impact: 'Alto', probability: 'Medio', category: 'Operacional', mitigation: 'Estrategias de gestión del cambio, capacitación robusta, involucramiento temprano.' },
+                        { name: 'Resistencia a modificar procesos operativos', impact: 'Medio', probability: 'Alto', category: 'Operacional', mitigation: 'Demostración clara de beneficios (ROI), implementación gradual.' },
+                        { name: 'Dependencia de conectividad', impact: 'Medio', probability: 'Medio', category: 'Operacional', mitigation: 'Buffering de datos, análisis diferido.'},
+                        { name: 'Cambios en la regulación', impact: 'Bajo', probability: 'Medio', category: 'Externo', mitigation: 'Plataforma adaptable.' },
+                        { name: 'No alcanzar ahorros proyectados rápidamente', impact: 'Medio', probability: 'Medio', category: 'Negocio', mitigation: 'KPIs realistas, ajustes continuos.'}
                     ],
-                    matrixTitle: "Matriz de Riesgos",
+                    matrixTitle: "Matriz de Riesgos para la Implementación de la Plataforma",
                     matrixTitleIcon: createIcon(AlertTriangleMain, 'h-5 w-5 text-red-600'),
-                    legendTitle: "Leyenda de Riesgos",
+                    legendTitle: "Leyenda de Riesgos Clave",
                     legendTitleIcon: createIcon(InfoIcon, 'h-5 w-5 text-slate-700'),
-                    mitigationStrategyLabel: "Estrategia de Mitigación:"
+                    mitigationStrategyLabel: "Estrategia de Mitigación Propuesta:"
                 }
             },
-                      {
+            {
                 id: "cronograma",
-                title: "Cronograma Propuesto",
-                icon: CalendarMain, // Main section icon
+                title: "Hoja de Ruta para la Implementación",
+                icon: GanttChartSquare,
                 iconBgColor: "bg-indigo-100",
                 iconColor: "text-indigo-600",
                 content: {
                     type: "timeline",
-                    phases: [
+                    phases: [ // Phases reframed for an operator client
                         {
                             id: 1,
-                            name: 'Planificación y Diseño',
-                            duration: '3 meses',
-                            status: 'Pendiente',
-                            statusBadgeClass: 'badge badge-primary badge-outline', // DaisyUI classes
-                            tasksTitle: 'Tareas Principales', // Data-driven title
-                            tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'), // Data-driven icon
+                            name: 'Fase 1: Diagnóstico y Configuración Inicial',
+                            duration: '2-4 Semanas',
+                            status: 'Listo para Iniciar',
+                            statusBadgeClass: 'badge badge-primary',
+                            tasksTitle: 'Actividades Clave',
+                            tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
                             tasks: [
-                                { text: 'Análisis detallado de requerimientos y casos de uso', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'Diseño de arquitectura del sistema y modelo de datos', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'Prototipado de interfaces de usuario', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'Selección de tecnologías y proveedores', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
+                                { text: 'Reunión de kick-off y alineación de expectativas.', icon: createIcon(UsersIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Análisis de sistemas GPS actuales e inicio de integración de datos.', icon: createIcon(Zap, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Configuración del dashboard de diagnóstico inicial.', icon: createIcon(BarChartIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Selección conjunta de 2-3 rutas para el proyecto piloto.', icon: createIcon(Filter, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ],
-                            milestonesTitle: 'Hitos', // Data-driven title
-                            milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'), // Data-driven icon
+                            milestonesTitle: 'Hitos Principales',
+                            milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
                             milestones: [
-                                { text: 'Documento de requerimientos aprobado', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'Arquitectura definida', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'Prototipos validados', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
+                                { text: 'Datos de rutas piloto integrados en la plataforma.', icon: createIcon(MilestoneIconLucide, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Dashboard de diagnóstico operativo y validado.', icon: createIcon(MilestoneIconLucide, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ]
                         },
                         {
                             id: 2,
-                            name: 'Desarrollo',
-                            duration: '6 meses',
-                            status: 'En Progreso',
-                            statusBadgeClass: 'badge badge-success badge-outline',
-                            tasksTitle: 'Tareas Clave de Desarrollo',
+                            name: 'Fase 2: Implementación Piloto y Optimización',
+                            duration: '6-8 Semanas (post Fase 1)',
+                            status: 'Planificado',
+                            statusBadgeClass: 'badge badge-info badge-outline',
+                            tasksTitle: 'Actividades Clave',
                             tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
                             tasks: [
-                                { text: 'Desarrollo de backend y APIs', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'Implementación de geolocalización', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'Desarrollo de apps móviles', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
+                                { text: 'Implementación de módulos de monitoreo y planificación en rutas piloto.', icon: createIcon(Settings2, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Primer ciclo de análisis y generación de recomendaciones de optimización.', icon: createIcon(Lightbulb, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Capacitación del personal de despacho y planificación en el uso de la plataforma.', icon: createIcon(UsersRoundIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Recopilación de feedback y ajustes iniciales a la plataforma.', icon: createIcon(MessageSquareWarning, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ],
-                            milestonesTitle: 'Logros de Desarrollo',
+                            milestonesTitle: 'Hitos Principales',
                             milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
                             milestones: [
-                                { text: 'Backend funcional', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'App móvil v1.0', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
+                                { text: 'Primer reporte de impacto de optimizaciones en rutas piloto.', icon: createIcon(MilestoneIconLucide, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Personal clave capacitado y utilizando la plataforma activamente.', icon: createIcon(MilestoneIconLucide, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ]
                         },
-                        // ... (Add data for other phases: Piloto, Despliegue, similarly)
-                        // Example for "Piloto" phase
                         {
                             id: 3,
-                            name: 'Fase Piloto',
-                            duration: '3 meses',
-                            status: 'Pendiente',
-                            statusBadgeClass: 'badge badge-primary badge-outline',
-                            tasksTitle: 'Actividades del Piloto',
+                            name: 'Fase 3: Despliegue Extendido y Ajustes',
+                            duration: '4-6 Semanas (post Fase 2)',
+                            status: 'Planificado',
+                            statusBadgeClass: 'badge badge-info badge-outline',
+                            tasksTitle: 'Actividades Clave',
                             tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
                             tasks: [
-                                { text: 'Implementación en rutas seleccionadas', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'Capacitación de personal operativo', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
+                                { text: 'Extensión de la plataforma a rutas adicionales o toda la flotilla.', icon: createIcon(Layers, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Ajustes finos de algoritmos y personalización de dashboards.', icon: createIcon(SlidersHorizontal, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Definición de reportes periódicos de gestión.', icon: createIcon(BarChartBig, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ],
-                            milestonesTitle: 'Resultados del Piloto',
+                            milestonesTitle: 'Hitos Principales',
                             milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
                             milestones: [
-                                { text: 'Lanzamiento piloto exitoso', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'Feedback de usuarios recopilado', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
+                                { text: 'Plataforma operativa en el alcance definido.', icon: createIcon(MilestoneIconLucide, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Entrega de manuales de usuario y documentación final.', icon: createIcon(MilestoneIconLucide, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ]
                         },
-                        // Example for "Despliegue" phase
                         {
                             id: 4,
-                            name: 'Despliegue Completo',
-                            duration: '4 meses',
-                            status: 'Pendiente',
-                            statusBadgeClass: 'badge badge-primary badge-outline',
-                            tasksTitle: 'Tareas de Despliegue',
+                            name: 'Fase 4: Soporte Continuo y Evolución',
+                            duration: 'Continuo (post Fase 3)',
+                            status: 'Soporte Activo',
+                            statusBadgeClass: 'badge badge-success',
+                            tasksTitle: 'Actividades Clave',
                             tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
                             tasks: [
-                                { text: 'Implementación gradual en todas las rutas', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'Campañas de difusión y adopción masiva', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
+                                { text: 'Soporte técnico y resolución de incidencias.', icon: createIcon(Wrench, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Actualizaciones periódicas de la plataforma (nuevas funcionalidades, mejoras).', icon: createIcon(Cloud, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Revisiones trimestrales de KPIs y consultoría para optimización continua.', icon: createIcon(LineChart, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ],
-                            milestonesTitle: 'Hitos del Despliegue',
+                            milestonesTitle: 'Hitos Principales',
                             milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
                             milestones: [
-                                { text: 'Despliegue completo del sistema', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'Reporte de adopción y KPIs iniciales', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
-                            ]
-                        },
-                        // Example for "Operación" phase
-                        {
-                            id: 5,
-                            name: 'Operación y Mantenimiento',
-                            duration: 'Indefinido',
-                            status: 'Pendiente',
-                            statusBadgeClass: 'badge badge-primary badge-outline',
-                            tasksTitle: 'Actividades de Operación',
-                            tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
-                            tasks: [
-                                { text: 'Monitoreo continuo del sistema', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'Actualizaciones y mejoras basadas en feedback', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
-                            ],
-                            milestonesTitle: 'Hitos de Operación',
-                            milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
-                            milestones: [
-                                { text: 'Sistema operativo con usuarios activos', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
-                                { text: 'Reporte de rendimiento anual', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
+                                { text: 'Ciclos de mejora continua implementados.', icon: createIcon(MilestoneIconLucide, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Satisfacción del cliente mantenida y documentada.', icon: createIcon(MilestoneIconLucide, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ]
                         }
                     ],
-                    summaryTitle: "Resumen de Tiempos del Proyecto", // Data-driven title
-                    summaryTitleIcon: createIcon(Clock, 'h-5 w-5 text-indigo-600'), // Data-driven icon
-                    summaryCards: [ // Data for summary cards
-                        { label: 'Duración Total Estimada', value: '16 meses', subLabel: 'Fases 1-4 Completas' },
-                        { label: 'Fase Más Extensa', value: '6 meses', subLabel: 'Desarrollo Intensivo' },
-                        { label: 'Inicio Proyectado', value: 'Abril 2025', subLabel: 'Q2 2025 (Post-aprobación)' },
-                        { label: 'Lanzamiento Final', value: 'Octubre 2026', subLabel: 'Q4 2026 (Operación Completa)' }
+                    summaryTitle: "Resumen del Plan de Implementación",
+                    summaryTitleIcon: createIcon(CalendarDays, 'h-5 w-5 text-indigo-600'),
+                    summaryCards: [
+                        { label: 'Tiempo Estimado Piloto', value: '8-12 Sem.', subLabel: 'Fases 1 y 2 Completas' },
+                        { label: 'Tiempo Total Implementación', value: '12-18 Sem.', subLabel: 'Hasta Despliegue Extendido' },
+                        { label: 'Inicio Sugerido', value: 'Inmediato', subLabel: 'Post-Acuerdo' },
+                        { label: 'Soporte', value: 'Continuo', subLabel: 'Post-Implementación' }
                     ]
                 }
             },
             {
                 id: "conclusiones",
-                title: "Conclusiones y Recomendaciones",
+                title: "Conclusión: Una Inversión Estratégica para su Empresa",
                 icon: CheckCircleMain,
                 iconBgColor: "bg-teal-100", iconColor: "text-teal-600",
                 content: {
                     type: "conclusions",
-                    generalConclusionTitle: "Conclusión General",
+                    generalConclusionTitle: "Propuesta de Valor Concreta para el Transporte de Toluca",
                     mainConclusionParagraphs: [
-                        `El análisis de factibilidad demuestra que el proyecto de Sistema Inteligente de Transporte Público es viable técnica, económica y operativamente. Los beneficios esperados superan significativamente los costos y riesgos identificados, con un impacto potencial positivo en múltiples dimensiones sociales, económicas y ambientales.`,
-                        `La implementación de esta solución permitiría abordar directamente los problemas de ineficiencia en el transporte público documentados por el IMCO, donde actualmente se pierden 118 horas anuales por usuario y 94 mil millones de pesos a nivel nacional debido a la congestión.`
+                        `La Plataforma Inteligente de Optimización del Transporte Público ofrece una solución tangible y data-driven a los desafíos operativos que enfrentan los líderes del transporte en Toluca. Al transformar datos brutos en insights accionables, su empresa puede lograr una operación más eficiente, reducir costos significativamente y mejorar la calidad del servicio ofrecido a los ciudadanos.`,
+                        `Consideramos que esta es una inversión estratégica con un claro retorno, no solo económico, sino también en términos de reputación, satisfacción del cliente y posicionamiento como un operador moderno e innovador en el sector.`
                     ],
-                    overallRecommendationText: "Proyecto Recomendado para Implementación",
-                    overallRecommendationIcon: createIcon(CheckCircle, 'h-5 w-5'),
+                    overallRecommendationText: "Recomendamos Iniciar un Proyecto Piloto",
+                    overallRecommendationIcon: createIcon(Rocket, 'h-5 w-5'),
                     overallRecommendationBoxClass: 'inline-flex items-center gap-2 bg-teal-600 text-white px-4 py-2 rounded-full',
-                    strengthsTitle: "Fortalezas del Proyecto",
+                    strengthsTitle: "Ventajas Clave de Nuestra Solución",
                     strengthsTitleIcon: createIcon(ThumbsUp, 'h-5 w-5 text-teal-600'),
                     strengths: [
-                        { title: "Alto impacto social y económico", description: "Beneficios cuantificables para usuarios y operadores", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-teal-600') },
-                        { title: "Tecnologías maduras y probadas", description: "Uso de soluciones tecnológicas con amplia trayectoria", icon: createIcon(CheckCircleMain, 'h-5 w-5 text-teal-600') }
+                        { title: "Enfoque en ROI y Eficiencia Operativa", description: "Soluciones diseñadas para impactar directamente la rentabilidad de su empresa.", icon: createIcon(DollarSign, 'h-5 w-5 text-teal-600') },
+                        { title: "Tecnología Adaptable y Escalable", description: "Plataforma construida para crecer con sus necesidades y adaptarse a la realidad de Toluca.", icon: createIcon(Settings2, 'h-5 w-5 text-teal-600') },
+                        { title: "Soporte Local y Conocimiento del Sector", description: "Colaboración con la UAEMéx para un entendimiento profundo del contexto local.", icon: createIcon(University, 'h-5 w-5 text-teal-600') }
                     ],
-                    considerationsTitle: "Consideraciones Clave",
+                    considerationsTitle: "Factores Clave para el Éxito Conjunto",
                     considerationsTitleIcon: createIcon(AlertTriangleMain, 'h-5 w-5 text-amber-600'),
                     considerations: [
-                        { title: "Gestión del cambio", description: "Estrategia robusta para superar resistencia inicial", icon: createIcon(AlertTriangleMain, 'h-5 w-5 text-amber-600') },
-                        { title: "Inclusión digital", description: "Alternativas para usuarios sin acceso a tecnología", icon: createIcon(AlertTriangleMain, 'h-5 w-5 text-amber-600') }
+                        { title: "Compromiso de la Dirección", description: "El involucramiento activo de los líderes de la empresa de transporte es crucial para la adopción.", icon: createIcon(UsersIcon, 'h-5 w-5 text-amber-600') },
+                        { title: "Calidad y Disponibilidad de Datos GPS", description: "La precisión de la optimización depende de la calidad de los datos de entrada de las unidades.", icon: createIcon(Database, 'h-5 w-5 text-amber-600') },
+                        { title: "Apertura a la Innovación y Gestión del Cambio", description: "Disposición para adaptar procesos y adoptar nuevas herramientas tecnológicas.", icon: createIcon(Lightbulb, 'h-5 w-5 text-amber-600') }
                     ],
-                    nextStepsTitle: "Próximos Pasos Recomendados",
-                    nextStepsTitleIcon: createIcon(ArrowRight, 'h-5 w-5 text-teal-600'),
+                    nextStepsTitle: "Siguientes Pasos para Iniciar la Colaboración",
+                    nextStepsTitleIcon: createIcon(ArrowRightToLine, 'h-5 w-5 text-teal-600'),
                     nextStepsTimelineIndicatorClass: 'bg-teal-500 text-white',
                     nextSteps: [
-                        { id: 1, title: "Establecer Comité Directivo", description: "Formar un comité con representantes de todas las partes interesadas: gobierno, operadores de transporte, usuarios, expertos técnicos y académicos.", priority: "Alta", priorityBadgeClass: 'badge bg-teal-100 text-teal-800' },
-                        { id: 2, title: "Asegurar Financiamiento Inicial", description: "Gestionar los recursos necesarios para la fase inicial de desarrollo, explorando las diversas fuentes de financiamiento identificadas.", priority: "Alta", priorityBadgeClass: 'badge bg-teal-100 text-teal-800' },
-                        { id: 3, title: "Estudio Detallado de Rutas Prioritarias", description: "Realizar un análisis detallado de las rutas con mayor demanda y problemática para implementación piloto, recopilando datos de flujo de pasajeros.", priority: "Media", priorityBadgeClass: 'badge bg-teal-100 text-teal-800' }
+                        { id: 1, title: "Reunión de Presentación Detallada", description: "Agendar una sesión para mostrar la plataforma en acción y discutir sus necesidades específicas.", priority: "Inmediato", priorityBadgeClass: 'badge bg-teal-100 text-teal-800' },
+                        { id: 2, title: "Análisis de Datos Operativos (Diagnóstico)", description: "Compartir una muestra de sus datos GPS (anonimizados si es necesario) para un análisis de diagnóstico preliminar sin costo.", priority: "Próximo", priorityBadgeClass: 'badge bg-teal-100 text-teal-800' },
+                        { id: 3, title: "Definición de Proyecto Piloto Personalizado", description: "Con base en el diagnóstico, co-diseñar un proyecto piloto enfocado en sus rutas o desafíos más críticos en Toluca.", priority: "A definir", priorityBadgeClass: 'badge bg-teal-100 text-teal-800' }
                     ],
                     finalRecommendationSection: {
-                        title: "Recomendación Final",
+                        title: "Invitación a la Transformación Digital de su Flotilla",
                         icon: createIcon(Sparkles, 'h-5 w-5 text-teal-600'),
-                        text: `Se recomienda proceder con el desarrollo del proyecto siguiendo un enfoque gradual que permita validar hipótesis, ajustar el sistema según feedback de usuarios reales, y escalar la solución de manera sostenible. Es crucial involucrar a todos los actores relevantes desde las etapas iniciales para garantizar la adopción y minimizar la resistencia al cambio.`,
+                        text: `Estamos convencidos de que nuestra plataforma puede ser un aliado estratégico fundamental para el éxito y crecimiento de su operación de transporte en Toluca. Le invitamos a dar el siguiente paso hacia una gestión más inteligente, eficiente y rentable.`,
                         actionButton: {
-                            text: "Aprobar Proyecto",
-                            icon: createIcon(CheckCircle, 'mr-2 h-4 w-4'),
+                            text: "Agendar Demostración Personalizada",
+                            icon: createIcon(CalendarPlus, 'mr-2 h-4 w-4'), // CalendarPlus might be better
                             className: 'bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded inline-flex items-center'
                         }
                     }
