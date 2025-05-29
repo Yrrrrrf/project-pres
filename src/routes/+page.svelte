@@ -52,13 +52,11 @@
                 {:else if section.content.type === 'technical-feasibility'}
                     <TechnicalFeasibility content={section.content} />
                 {:else if section.content.type === 'economic-feasibility'}
-                    <!-- Assuming formatCurrency is now in utils -->
-                    <!-- <EconomicFeasibility content={section.content} /> -->
+                    <EconomicFeasibility content={section.content} />
                 {:else if section.content.type === 'operative-feasibility'}
                     <OperativeFeasibility content={section.content} />
                 {:else if section.content.type === 'risks'}
-                    <!-- Assuming getRiskColor is now in utils -->
-                    <!-- <Risks content={section.content} /> -->
+                    <Risks content={section.content} />
                 {:else if section.content.type === 'timeline'}
                     <Timeline content={section.content} />
                 {:else if section.content.type === 'conclusions'}
