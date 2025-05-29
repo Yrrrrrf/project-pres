@@ -11,7 +11,6 @@ export { default as SectionHeader } from './layout/SectionHeader.svelte';
 export { default as InfoCard } from './content/InfoCard.svelte';
 export { default as ProgressDisplay } from './content/ProgressDisplay.svelte';
 export { default as DataTable } from './content/DataTable.svelte';
-export { default as TabContainer } from './content/TabContainer.svelte';
 
 // Visualization components
 export { default as RiskMatrix } from './visualization/RiskMatrix.svelte';
