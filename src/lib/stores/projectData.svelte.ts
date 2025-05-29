@@ -12,7 +12,8 @@ import {
     AlertCircle, ShieldAlert, Eye, XCircle, ShieldX, CheckCircle,
     ClipboardList, TargetIcon, Milestone, GanttChartSquare, CalendarClock, CalendarDays, Rocket,
     Sparkles, XSquare, CheckCircle2, InfoIcon,
-	Flag
+	Flag,
+    MilestoneIcon
 } from 'lucide-svelte';
 
 import type { ComponentType } from 'svelte';
@@ -383,11 +384,12 @@ class ProjectDataStore {
                     mitigationStrategyLabel: "Estrategia de Mitigación:"
                 }
             },
-            {
+                      {
                 id: "cronograma",
                 title: "Cronograma Propuesto",
-                icon: CalendarMain,
-                iconBgColor: "bg-indigo-100", iconColor: "text-indigo-600",
+                icon: CalendarMain, // Main section icon
+                iconBgColor: "bg-indigo-100",
+                iconColor: "text-indigo-600",
                 content: {
                     type: "timeline",
                     phases: [
@@ -396,98 +398,112 @@ class ProjectDataStore {
                             name: 'Planificación y Diseño',
                             duration: '3 meses',
                             status: 'Pendiente',
-                            statusBadgeClass: 'badge badge-primary badge-outline',
-                            tasksTitle: 'Tareas Principales',
-                            tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
+                            statusBadgeClass: 'badge badge-primary badge-outline', // DaisyUI classes
+                            tasksTitle: 'Tareas Principales', // Data-driven title
+                            tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'), // Data-driven icon
                             tasks: [
-                                {text: 'Análisis detallado de requerimientos y casos de uso', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Diseño de arquitectura del sistema y modelo de datos', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Prototipado de interfaces de usuario', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Selección de tecnologías y proveedores', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                                { text: 'Análisis detallado de requerimientos y casos de uso', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Diseño de arquitectura del sistema y modelo de datos', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Prototipado de interfaces de usuario', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Selección de tecnologías y proveedores', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ],
-                            milestonesTitle: 'Hitos',
-                            milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
+                            milestonesTitle: 'Hitos', // Data-driven title
+                            milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'), // Data-driven icon
                             milestones: [
-                                {text: 'Documento de requerimientos aprobado', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Arquitectura definida', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Prototipos validados', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                                { text: 'Documento de requerimientos aprobado', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Arquitectura definida', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Prototipos validados', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ]
                         },
                         {
                             id: 2,
                             name: 'Desarrollo',
                             duration: '6 meses',
-                            status: 'En Progreso', // Updated status for example
-                            statusBadgeClass: 'badge badge-success badge-outline', // Updated badge for example
-                            tasksTitle: 'Tareas Principales',
+                            status: 'En Progreso',
+                            statusBadgeClass: 'badge badge-success badge-outline',
+                            tasksTitle: 'Tareas Clave de Desarrollo',
                             tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
                             tasks: [
-                                {text: 'Desarrollo de backend y APIs', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Implementación de sistemas de geolocalización', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Desarrollo de aplicaciones móviles', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Integración de pasarelas de pago', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Pruebas de componentes', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                                { text: 'Desarrollo de backend y APIs', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Implementación de geolocalización', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Desarrollo de apps móviles', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ],
-                            milestonesTitle: 'Hitos',
+                            milestonesTitle: 'Logros de Desarrollo',
                             milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
                             milestones: [
-                                {text: 'Backend funcional', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Aplicación móvil v1.0', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Integración de pagos completada', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                                { text: 'Backend funcional', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'App móvil v1.0', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ]
                         },
+                        // ... (Add data for other phases: Piloto, Despliegue, similarly)
+                        // Example for "Piloto" phase
                         {
                             id: 3,
-                            name: 'Piloto',
+                            name: 'Fase Piloto',
                             duration: '3 meses',
                             status: 'Pendiente',
                             statusBadgeClass: 'badge badge-primary badge-outline',
-                            tasksTitle: 'Tareas Principales',
+                            tasksTitle: 'Actividades del Piloto',
                             tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
                             tasks: [
-                                {text: 'Implementación en rutas seleccionadas', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Capacitación de personal operativo', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Pruebas de usuario y recopilación de feedback', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Ajustes y optimizaciones', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                                { text: 'Implementación en rutas seleccionadas', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Capacitación de personal operativo', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ],
-                            milestonesTitle: 'Hitos',
+                            milestonesTitle: 'Resultados del Piloto',
                             milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
                             milestones: [
-                                {text: 'Lanzamiento piloto', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Reporte de feedback de usuarios', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Optimizaciones implementadas', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                                { text: 'Lanzamiento piloto exitoso', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Feedback de usuarios recopilado', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ]
                         },
+                        // Example for "Despliegue" phase
                         {
                             id: 4,
-                            name: 'Despliegue',
+                            name: 'Despliegue Completo',
                             duration: '4 meses',
                             status: 'Pendiente',
                             statusBadgeClass: 'badge badge-primary badge-outline',
-                            tasksTitle: 'Tareas Principales',
+                            tasksTitle: 'Tareas de Despliegue',
                             tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
                             tasks: [
-                                {text: 'Implementación gradual en todas las rutas', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Campañas de difusión y adopción', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Monitoreo y resolución de incidencias', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Evaluación de desempeño inicial', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                                { text: 'Implementación gradual en todas las rutas', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Campañas de difusión y adopción masiva', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ],
-                            milestonesTitle: 'Hitos',
+                            milestonesTitle: 'Hitos del Despliegue',
                             milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
                             milestones: [
-                                {text: 'Despliegue completo', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Reporte de adopción', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
-                                {text: 'Evaluación de KPIs iniciales', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                                { text: 'Despliegue completo del sistema', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Reporte de adopción y KPIs iniciales', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
+                            ]
+                        },
+                        // Example for "Operación" phase
+                        {
+                            id: 5,
+                            name: 'Operación y Mantenimiento',
+                            duration: 'Indefinido',
+                            status: 'Pendiente',
+                            statusBadgeClass: 'badge badge-primary badge-outline',
+                            tasksTitle: 'Actividades de Operación',
+                            tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
+                            tasks: [
+                                { text: 'Monitoreo continuo del sistema', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Actualizaciones y mejoras basadas en feedback', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
+                            ],
+                            milestonesTitle: 'Hitos de Operación',
+                            milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
+                            milestones: [
+                                { text: 'Sistema operativo con usuarios activos', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') },
+                                { text: 'Reporte de rendimiento anual', icon: createIcon(MilestoneIcon, 'w-2 h-2 rounded-full bg-indigo-500 mt-2') }
                             ]
                         }
                     ],
-                    summaryTitle: "Resumen de Tiempos",
-                    summaryTitleIcon: createIcon(Clock, 'h-5 w-5 text-indigo-600'),
-                    summaryCards: [
-                        { label: 'Duración Total', value: '16 meses', subLabel: 'Fases 1-4' },
-                        { label: 'Fase más Larga', value: '6 meses', subLabel: 'Desarrollo' },
-                        { label: 'Inicio Estimado', value: 'Abril 2025', subLabel: 'Q2 2025' }, // Matching component display
-                        { label: 'Lanzamiento', value: 'Octubre 2026', subLabel: 'Q4 2026' } // Matching component display
+                    summaryTitle: "Resumen de Tiempos del Proyecto", // Data-driven title
+                    summaryTitleIcon: createIcon(Clock, 'h-5 w-5 text-indigo-600'), // Data-driven icon
+                    summaryCards: [ // Data for summary cards
+                        { label: 'Duración Total Estimada', value: '16 meses', subLabel: 'Fases 1-4 Completas' },
+                        { label: 'Fase Más Extensa', value: '6 meses', subLabel: 'Desarrollo Intensivo' },
+                        { label: 'Inicio Proyectado', value: 'Abril 2025', subLabel: 'Q2 2025 (Post-aprobación)' },
+                        { label: 'Lanzamiento Final', value: 'Octubre 2026', subLabel: 'Q4 2026 (Operación Completa)' }
                     ]
                 }
             },

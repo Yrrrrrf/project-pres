@@ -251,37 +251,40 @@ export interface RisksContent {
 }
 
 // Timeline
-export interface TimelineTask {
+export interface TimelineTask { // Ensure this is already defined
 	text: string;
 	icon?: IconDetail; // Bullet point, or specific icon
 }
-export interface TimelineMilestone {
+export interface TimelineMilestone { // Ensure this is already defined
 	text: string;
 	icon?: IconDetail; // Bullet point, or specific icon
 }
+
 export interface TimelinePhase {
-	id: string | number; // Unique ID for the phase (e.g., 1, "Fase 1")
+	id: string | number;
 	name: string;
 	duration: string;
-	status: string; // "Pendiente", "En Progreso", "Completado"
-	statusBadgeClass?: string; // e.g. 'badge-primary badge-outline'
-	tasksTitle: string;
-	tasksIcon?: IconDetail; // Icon for the tasks section header
+	status: string;
+	statusBadgeClass?: string;
+	tasksTitle: string;         // Title for "Tareas Principales"
+	tasksIcon?: IconDetail;      // Icon for "Tareas Principales"
 	tasks: TimelineTask[];
-	milestonesTitle: string;
-	milestonesIcon?: IconDetail; // Icon for the milestones section header
+	milestonesTitle: string;    // Title for "Hitos"
+	milestonesIcon?: IconDetail; // Icon for "Hitos"
 	milestones: TimelineMilestone[];
 }
-export interface TimelineSummaryCard {
+
+export interface TimelineSummaryCard { // Ensure this is already defined
 	label: string;
 	value: string;
 	subLabel?: string;
 }
+
 export interface TimelineContent {
-	type: 'timeline'; // Discriminant
+	type: 'timeline';
 	phases: TimelinePhase[];
-	summaryTitle: string;
-	summaryTitleIcon?: IconDetail;
+	summaryTitle: string;        // Title for "Resumen de Tiempos"
+	summaryTitleIcon?: IconDetail; // Icon for "Resumen de Tiempos"
 	summaryCards: TimelineSummaryCard[];
 }
 
