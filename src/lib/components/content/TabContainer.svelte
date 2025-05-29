@@ -1,69 +1,63 @@
 <script lang="ts">
-    export interface Tab {
-        id: string;
-        title: string;
-        icon?: any;
-        content: any;
+    import type { FooterContent, IconDetail } from '$lib/types';
+    import { BookOpen, Edit3, Calendar as CalendarIcon } from 'lucide-svelte'; // Default icons
+    import type { ComponentType } from 'svelte';
+
+    let { content } = $props<{ content: FooterContent }>();
+
+    function getIconDefaults(iconDetail: IconDetail | undefined, DefaultIconComponent: ComponentType, defaultClass: string) {
+        return {
+            component: iconDetail?.component || DefaultIconComponent,
+            className: iconDetail?.className || defaultClass
+        };
     }
 
-    let {
-        tabs = [],
-        defaultTab = "",
-        fullWidth = true,
-        className = ""
-    } = $props<{
-        tabs: Tab[];
-        defaultTab?: string;
-        fullWidth?: boolean;
-        className?: string;
-    }>();
+    const courseInfoIconDefaults = getIconDefaults(content.courseInfo.icon, BookOpen, 'h-5 w-5');
+    const contextIconDefaults = getIconDefaults(content.courseInfo.documentContextIcon, Edit3, 'h-4 w-4 mt-1 flex-shrink-0');
 
-    let activeTab = $state(defaultTab || (tabs.length > 0 ? tabs[0].id : ""));
-
-    function setActiveTab(tabId: string) {
-        activeTab = tabId;
-    }
-
-    // Get the active tab content
-    let activeTabContent = $derived(() => {
-        const tab = tabs.find((t: Tab) => t.id === activeTab);
-        return tab ? tab.content : null;
-    });
 </script>
 
-<div class={className}>
-    <div class={`tabs ${fullWidth ? 'grid grid-cols-' + tabs.length : 'flex'} mb-4`}>
-        {#each tabs as tab}
-            <button 
-                class={`tab tab-bordered ${activeTab === tab.id ? 'tab-active' : ''}`}
-                onclick={() => setActiveTab(tab.id)}
-                role="tab"
-                aria-controls={`tab-content-${tab.id}`}
-            >
-                {#if tab.icon}
-                    <tab.icon class="h-4 w-4 mr-2" />
-                {/if}
-                {tab.title}
-            </button>
-        {/each}
+<footer class="bg-slate-800 text-white py-8 px-4 mt-12">
+    <div class="max-w-5xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    {#if courseInfoIconDefaults.component}
+                        {@const IconComponent = courseInfoIconDefaults.component}
+                        <IconComponent class={courseInfoIconDefaults.className} />
+                    {/if}
+                    {content.courseInfo.title}
+                </h3>
+                <p class="text-slate-300">
+                    {content.courseInfo.institution}<br />
+                    {content.courseInfo.faculty}
+                </p>
+                <p class="mt-4 text-slate-400 text-sm flex items-start gap-2">
+                     {#if contextIconDefaults.component}
+                       {@const IconComponent = contextIconDefaults.component}
+                       <IconComponent class={contextIconDefaults.className} />
+                    {/if}
+                    <span>{content.courseInfo.documentContext}</span>
+                </p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4">{content.courseDetails.title}</h3>
+                <ul class="space-y-2 text-slate-300">
+                    {#each content.courseDetails.items as item}
+                        {@const itemIconDefaults = getIconDefaults(item.icon, CalendarIcon, 'h-4 w-4 text-emerald-400')}
+                        <li class="flex items-center gap-2">
+                            {#if itemIconDefaults.component}
+                                {@const IconComponent = itemIconDefaults.component}
+                                <IconComponent class={itemIconDefaults.className} />
+                            {/if}
+                            <span>{item.label} {item.value}</span>
+                        </li>
+                    {/each}
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-slate-700 mt-6 pt-6 text-center text-slate-400 text-sm">
+            © {new Date().getFullYear()} {content.copyrightInstitution}. {content.copyrightText}
+        </div>
     </div>
-    
-    <div 
-        id={`tab-content-${activeTab}`}
-        class="tab-content"
-        role="tabpanel"
-        aria-labelledby={`tab-${activeTab}`}
-    >
-        {#if activeTabContent}
-            {#if typeof activeTabContent === 'function'}
-                {@render activeTabContent()}
-            {:else if typeof activeTabContent === 'object' && activeTabContent !== null}
-                {#if activeTabContent}
-                    <activeTabContent></activeTabContent>
-                {/if}
-            {:else}
-                {activeTabContent}
-            {/if}
-        {/if}
-    </div>
-</div>
+</footer>

@@ -26,7 +26,8 @@
                 {#each config.pageIntro.badges as badge (badge.text)}
                     <span class="badge {badge.bgColorClass} {badge.hoverBgColorClass} {badge.textColorClass || 'text-white'}">
                         {#if badge.icon}
-                            <svelte:component this={badge.icon.component} class={badge.icon.className} />
+                            {@const BadgeIcon = badge.icon.component}
+                            <BadgeIcon class={badge.icon.className || 'inline-block h-4 w-4 mr-1'} />
                         {/if}
                         {badge.text}
                     </span>

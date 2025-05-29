@@ -79,7 +79,9 @@
             onclick={() => setActiveCategory(group.id)}
           >
             {#if group.icon?.component}
-              <svelte:component this={group.icon.component} class={group.icon.className || 'h-4 w-4 mr-2'} />
+              <!-- <svelte:component this={group.icon.component} class={group.icon.className || 'h-4 w-4 mr-2'} /> -->
+              {@const IconComponent = group.icon.component}
+             <IconComponent class={group.icon.className || 'h-4 w-4 mr-2'} />
             {:else}
               <AlertTriangle class="h-4 w-4 mr-2" /> <!-- Default icon for tab -->
             {/if}
@@ -128,7 +130,8 @@
   <div class="bg-white border rounded-lg p-4 shadow-sm">
     <h3 class="font-semibold text-lg mb-3 text-slate-800 flex items-center gap-2">
       {#if content.matrixTitleIcon?.component}
-         <svelte:component this={content.matrixTitleIcon.component} class={content.matrixTitleIcon.className || 'h-5 w-5 text-red-600'} />
+        {@const IconComponent = content.matrixTitleIcon.component}
+        <IconComponent class={content.matrixTitleIcon.className || 'h-5 w-5 text-red-600'} />
       {:else}
         <AlertTriangle class="h-5 w-5 text-red-600" />
       {/if}

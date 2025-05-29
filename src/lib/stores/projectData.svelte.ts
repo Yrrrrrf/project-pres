@@ -1,27 +1,22 @@
 // src/lib/stores/projectData.svelte.ts
-import type { ProjectConfig, ProjectSection, IconDetail /* import other specific types if needed */ } from '$lib/types';
+import type { ProjectConfig, IconDetail /* import other specific types if needed */ } from '$lib/types';
 import {
 	// Main Section Icons (already imported, ensure they match usage)
-	FileText, Target, Compass, Wrench, DollarSign, Users, AlertTriangle as AlertTriangleMain, Calendar as CalendarMain, CheckCircle as CheckCircleMain,
-	// Specific Content Icons (add all used within sections)
-	Clock, Lightbulb, Truck, ShieldCheck, Award, MapPin, Smartphone, Server, Database, Globe, CreditCard, Cpu, Cloud, TrendingUp, BarChart3, Layers,
-	University, BookOpen, Building, UserCheck, Tag, Edit3, GitBranch, ThumbsUp, ThumbsDown,
-	ListChecks, Flag, CheckSquare, Aperture, Briefcase, // Examples, replace with actuals
-    // For technical feasibility details
-    LocateFixed, Zap, BarChartHorizontal, Users2 as UsersRound,
-    // For economic feasibility
-    Wallet, ArrowRightToLine, HandCoins, TrendingUpIcon, BarChartBig, PiggyBank,
-    // For operative feasibility
-    UsersIcon, CreditCardIcon, WrenchIcon, LayersIcon, AwardIcon, LightbulbIcon, SmartphoneIcon, AlertTriangleIcon, ShieldCheckIcon, InfoIcon, GitBranchIcon, ThumbsUpIcon, ThumbsDownIcon, XSquare, CheckCircle2,
-    // For risks
+	FileText, Target, Compass, Wrench, DollarSign, Users as UsersIcon, AlertTriangle as AlertTriangleMain, Calendar as CalendarMain, CheckCircle as CheckCircleMain,
+	// General Utility Icons
+	Clock, Lightbulb, Truck, ShieldCheck, Award, MapPin, Smartphone, Server, Database, Globe, CreditCard, Cpu, Cloud, TrendingUp, BarChart3 as BarChartIcon, Layers,
+	// Header/Footer specific Icons
+	University, BookOpen, User, File, Tag, Edit3,
+	// Section content specific Icons (ensure all used in data are imported)
+	GitBranch, ThumbsUp, ThumbsDown, ArrowRight, CheckSquare, LocateFixed, Zap, BarChartHorizontal, Users2 as UsersRound, Wallet, ArrowRightToLine, HandCoins, TrendingUpIcon, BarChartBig, PiggyBank,
     AlertCircle, ShieldAlert, Eye, XCircle, ShieldX, CheckCircle,
-    // For timeline
-    ClipboardList, TargetIcon, Milestone, GanttChartSquare, ClockIcon, CalendarClock, CalendarDays, Rocket,
-    // For conclusions
-    CircleCheckBig, AlertTriangle, ArrowRight, Sparkles
+    ClipboardList, TargetIcon, Milestone, GanttChartSquare, CalendarClock, CalendarDays, Rocket,
+    Sparkles, XSquare, CheckCircle2, InfoIcon,
+	Flag
 } from 'lucide-svelte';
 
 import type { ComponentType } from 'svelte';
+import { formatCurrency } from '$lib/utils/formatting'; // Import utility for formatting
 
 // Helper to create IconDetail for brevity
 const createIcon = (component: ComponentType, className: string = 'h-5 w-5'): IconDetail => ({ component, className });
@@ -39,18 +34,20 @@ class ProjectDataStore {
 		footer: {
 			courseInfo: {
 				title: "Ingeniería de Software I",
-				icon: createIcon(BookOpen, 'h-5 w-5'),
+				icon: createIcon(BookOpen, 'h-5 w-5'), // Changed to BookOpen as it makes more sense for a course, matching default in Footer.svelte
 				institution: "Universidad Autónoma del Estado de México",
 				faculty: "Facultad de Ingeniería",
-				documentContext: `Este documento forma parte del análisis de factibilidad para el proyecto "Sistema Inteligente de Transporte Público" desarrollado como parte del curso de Ingeniería de Software I.`,
+				documentContext: `Este documento forma parte del análisis de factibilidad para el proyecto
+                "Sistema Inteligente de Transporte Público" desarrollado como parte
+                del curso de Ingeniería de Software I.`,
                 documentContextIcon: createIcon(Edit3, 'h-4 w-4 mt-1 flex-shrink-0')
 			},
 			courseDetails: {
 				title: "Información del Curso",
 				items: [
 					{ label: "Semestre:", value: "2025A", icon: createIcon(CalendarMain, 'h-4 w-4 text-emerald-400') },
-					{ label: "Profesor:", value: "Jose Antonio Alvarez Lobato", icon: createIcon(UserCheck, 'h-4 w-4 text-emerald-400') },
-					{ label: "Clave de la materia:", value: "LINC45", icon: createIcon(Tag, 'h-4 w-4 text-emerald-400') },
+					{ label: "Profesor:", value: "Jose Antonio Alvarez Lobato", icon: createIcon(User, 'h-4 w-4 text-emerald-400') },
+					{ label: "Clave de la materia:", value: "LINC45", icon: createIcon(Tag, 'h-4 w-4 text-emerald-400') }, // Used Tag as per prompt's Footer.svelte
 				],
 			},
 			copyrightInstitution: "Universidad Autónoma del Estado de México",
@@ -82,7 +79,7 @@ class ProjectDataStore {
 					keyPoints: [
 						{ title: "Reducción de Tiempo", description: "118 horas anuales perdidas por usuario", icon: createIcon(Clock, 'h-4 w-4 text-emerald-600') },
 						{ title: "Impacto Económico", description: "94 mil millones de pesos anuales en pérdidas", icon: createIcon(DollarSign, 'h-4 w-4 text-emerald-600') },
-						{ title: "Mejora en Seguridad", description: "Sistema de registro y verificación de usuarios", icon: createIcon(Users, 'h-4 w-4 text-emerald-600') }, // UsersRound or ShieldCheck might be better
+						{ title: "Mejora en Seguridad", description: "Sistema de registro y verificación de usuarios", icon: createIcon(UsersIcon, 'h-4 w-4 text-emerald-600') },
 						{ title: "Impacto Ambiental", description: "Reducción de emisiones por optimización", icon: createIcon(Lightbulb, 'h-4 w-4 text-emerald-600') },
 					],
 				},
@@ -95,14 +92,10 @@ class ProjectDataStore {
 				content: {
 					type: "objectives",
 					description: `Los siguientes objetivos han sido establecidos para guiar el desarrollo e implementación del sistema, con indicadores de progreso basados en el avance actual del proyecto:`,
-					objectives: [ // Assuming ProgressDisplay is used, or adapt component
-						// The image does not show progress bars for these, so I'll keep them minimal
-                        // If ProgressDisplay is used, you'll need name, progress, and icon for each.
-                        // For now, I'll represent them as simple text as the image doesn't have progress bars here.
-                        // This means Objectives.svelte might need adjustment if it *forces* ProgressDisplay.
-                        // Let's assume for template purposes, we want to define them for potential ProgressDisplay
-                        { id: 'obj1', name: 'Optimizar rutas (Placeholder)', progress: 0, icon: createIcon(Truck) },
-                        { id: 'obj2', name: 'Pagos digitales (Placeholder)', progress: 0, icon: createIcon(CreditCard) },
+					objectives: [
+                        { id: 'obj1', name: 'Optimizar rutas de transporte', progress: 75, icon: createIcon(Truck, 'h-4 w-4') },
+                        { id: 'obj2', name: 'Implementar pagos digitales', progress: 50, icon: createIcon(CreditCard, 'h-4 w-4') },
+                        { id: 'obj3', name: 'Mejorar seguridad de pasajeros', progress: 25, icon: createIcon(ShieldCheck, 'h-4 w-4') }
 					],
 					successCriteriaBoxTitle: "Criterios de Éxito",
                     successCriteriaBoxIcon: createIcon(CheckCircleMain, 'h-5 w-5 text-cyan-600'),
@@ -114,7 +107,6 @@ class ProjectDataStore {
 					],
 				},
 			},
-            // ... (ALCANCE) ...
             {
                 id: "alcance",
                 title: "Alcance del Proyecto",
@@ -149,7 +141,6 @@ class ProjectDataStore {
                     ]
                 }
             },
-            // ... (FACTIBILIDAD TÉCNICA - you'll need to map icons more carefully here) ...
             {
                 id: "factibilidad-tecnica",
                 title: "Análisis de Factibilidad Técnica",
@@ -161,8 +152,8 @@ class ProjectDataStore {
                     technologiesTitleIcon: createIcon(Server, 'h-5 w-5 text-blue-600'),
                     technologies: [
                         { name: 'Svelte-Kit', category: 'Frontend', description: 'Framework para desarrollo de aplicaciones web', level: 'Alto', icon: createIcon(FileText, 'h-4 w-4 text-blue-600') },
-                        { name: 'Tailwind CSS', category: 'Frontend', description: 'Framework CSS para diseño responsivo', level: 'Alto', icon: createIcon(FileText, 'h-4 w-4 text-blue-600') }, // Consider a more specific icon if available (e.g. Palette)
-                        { name: 'deno', category: 'Desarrollo', description: 'Entorno de ejecución para JavaScript y TypeScript', level: 'Alto', icon: createIcon(FileText, 'h-4 w-4 text-blue-600') }, // Consider CodeXml or similar
+                        { name: 'Tailwind CSS', category: 'Frontend', description: 'Framework CSS para diseño responsivo', level: 'Alto', icon: createIcon(FileText, 'h-4 w-4 text-blue-600') },
+                        { name: 'Deno', category: 'Backend', description: 'Entorno de ejecución para JavaScript y TypeScript', level: 'Alto', icon: createIcon(Server, 'h-4 w-4 text-blue-600') }, // Changed icon to Server for backend
                         { name: 'PostgreSQL', category: 'Base de Datos', description: 'Para datos geoespaciales y relacionales', level: 'Medio', icon: createIcon(Database, 'h-4 w-4 text-blue-600') },
                         { name: 'Google Maps API', category: 'Servicios', description: 'Para geolocalización y mapeo de rutas', level: 'Alto', icon: createIcon(Globe, 'h-4 w-4 text-blue-600') },
                         { name: 'Stripe/PayPal', category: 'Pagos', description: 'Para procesamiento de pagos digitales', level: 'Medio', icon: createIcon(CreditCard, 'h-4 w-4 text-blue-600') },
@@ -181,16 +172,325 @@ class ProjectDataStore {
                     resourcesTitleIcon: createIcon(UsersRound, 'h-5 w-5 text-blue-600'),
                     resourcesIntro: "Se requiere un equipo multidisciplinario con experiencia en diversas áreas técnicas:",
                     resourcePoints: [
-                        { text: "Desarrollo móvil (Svelte-Kit + Tauri2)", icon: createIcon(Aperture, 'w-2 h-2 rounded-full bg-blue-500')}, // Using Aperture as a generic bullet
-                        { text: "Desarrollo backend (Rust: Axum)", icon: createIcon(Aperture, 'w-2 h-2 rounded-full bg-blue-500')},
-                        { text: "Bases de datos (PostgreSQL)", icon: createIcon(Aperture, 'w-2 h-2 rounded-full bg-blue-500')},
-                        { text: "Geolocalización y mapas (Google Maps API)", icon: createIcon(Aperture, 'w-2 h-2 rounded-full bg-blue-500')}
+                        { text: "Desarrollo móvil (Svelte-Kit + Tauri2)", icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-blue-500')},
+                        { text: "Desarrollo backend (Rust: Axum)", icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-blue-500')},
+                        { text: "Bases de datos (PostgreSQL)", icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-blue-500')},
+                        { text: "Geolocalización y mapas (Google Maps API)", icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-blue-500')}
                     ],
                     resourcesNote: "Nota: La Universidad cuenta con talento en estas áreas a través de estudiantes avanzados y personal docente de la Licenciatura de Ingeniería en Computación, quienes pueden aportar al desarrollo bajo supervisión adecuada."
                 }
             },
-			// ... (Continue for Economic, Operative, Risks, Timeline, Conclusions)
-            // Example structure for Conclusions:
+            {
+                id: "factibilidad-economica",
+                title: "Análisis de Factibilidad Económica",
+                icon: DollarSign,
+                iconBgColor: "bg-green-100", iconColor: "text-green-600",
+                content: {
+                    type: "economic-feasibility",
+                    tabs: [
+                        {
+                            id: 'costs',
+                            tabTitle: 'Costos',
+                            tabIcon: createIcon(DollarSign, 'h-4 w-4 mr-1'),
+                            contentTitle: 'Costos Estimados del Proyecto',
+                            items: [
+                                { name: 'Desarrollo de software', amount: 2500000, percentage: 35 },
+                                { name: 'Hardware (GPS/IoT)', amount: 1800000, percentage: 25 },
+                                { name: 'Infraestructura cloud', amount: 900000, percentage: 13 },
+                                { name: 'Licencias', amount: 700000, percentage: 10 },
+                                { name: 'Marketing y capacitación', amount: 600000, percentage: 8 },
+                                { name: 'Soporte y mantenimiento', amount: 650000, percentage: 9 }
+                            ],
+                            totalLabel: 'Costo Total Estimado:'
+                        },
+                        {
+                            id: 'benefits',
+                            tabTitle: 'Beneficios',
+                            tabIcon: createIcon(TrendingUp, 'h-4 w-4 mr-1'),
+                            contentTitle: 'Beneficios Económicos Esperados',
+                            items: [
+                                { name: 'Reducción de costos operativos', amount: 1200000, percentage: 20 },
+                                { name: 'Aumento de ingresos', amount: 1800000, percentage: 30 },
+                                { name: 'Ingresos por suscripciones', amount: 1500000, percentage: 25 },
+                                { name: 'Reducción de pérdidas', amount: 900000, percentage: 15 },
+                                { name: 'Valor social', amount: 600000, percentage: 10 }
+                            ],
+                            totalLabel: 'Beneficio Anual Estimado:',
+                            note: `Nota: Basado en datos del IMCO, que estima que la congestión en ciudades mexicanas
+                            cuesta 94 mil millones de pesos anuales, una reducción del 10% en tiempos de espera y congestión
+                            podría representar un ahorro de aproximadamente 9.4 mil millones de pesos a nivel nacional.`
+                        },
+                        {
+                            id: 'roi',
+                            tabTitle: 'ROI',
+                            tabIcon: createIcon(BarChartIcon, 'h-4 w-4 mr-1'),
+                            contentTitle: 'Retorno de Inversión Proyectado',
+                            roiChartData: [
+                                { yearLabel: 'Año 1', value: -4000000, formattedValue: formatCurrency(-4000000) },
+                                { yearLabel: 'Año 2', value: -1500000, formattedValue: formatCurrency(-1500000) },
+                                { yearLabel: 'Año 3', value: 1000000, formattedValue: formatCurrency(1000000) },
+                                { yearLabel: 'Año 4', value: 3500000, formattedValue: formatCurrency(3500000) },
+                                { yearLabel: 'Año 5', value: 6000000, formattedValue: formatCurrency(6000000) }
+                            ],
+                            roiSummaryItems: [
+                                { label: 'Inversión Inicial:', value: formatCurrency(4000000), valueColorClass: 'text-red-600' },
+                                { label: 'Punto de Equilibrio:', value: 'Año 3' },
+                                { label: 'ROI a 5 años:', value: '150%', valueColorClass: 'text-green-600' }
+                            ]
+                        }
+                    ],
+                    funding: {
+                        title: 'Fuentes de Financiamiento',
+                        titleIcon: createIcon(PiggyBank, 'h-5 w-5 text-green-600'),
+                        publicTitle: 'Fondos Públicos',
+                        publicSources: [
+                            { text: "Fondos metropolitanos para movilidad", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') },
+                            { text: "Programas federales para desarrollo urbano", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') },
+                            { text: "Inversión de gobiernos locales", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') }
+                        ],
+                        privateTitle: 'Fondos Privados',
+                        privateSources: [
+                            { text: "Alianzas público-privadas con operadores", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') },
+                            { text: "Inversión de empresas de tecnología", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') },
+                            { text: "Fondos universitarios para investigación", icon: createIcon(ArrowRight, 'h-4 w-4 text-green-600 flex-shrink-0') }
+                        ]
+                    }
+                }
+            },
+            {
+                id: "factibilidad-operativa",
+                title: "Análisis de Factibilidad Operativa",
+                icon: UsersIcon,
+                iconBgColor: "bg-amber-100", iconColor: "text-amber-600",
+                content: {
+                  type: "operative-feasibility",
+                  orgChangesTitle: "Cambios Organizacionales",
+                  orgChangesIcon: createIcon(GitBranch, 'h-5 w-5 text-amber-600'),
+                  orgChangesItems: [
+                    {
+                      title: "Capacitación de Personal",
+                      description: "Conductores y personal administrativo requerirán capacitación en el uso de nuevas tecnologías y procedimientos operativos.",
+                      icon: createIcon(UsersIcon, 'h-4 w-4 text-amber-600')
+                    },
+                    {
+                      title: "Procedimientos de Cobro",
+                      description: "Adaptación de métodos de cobro tradicionales a un sistema digital integrado con múltiples opciones de pago.",
+                      icon: createIcon(CreditCard, 'h-4 w-4 text-amber-600')
+                    },
+                    {
+                      title: "Mantenimiento Técnico",
+                      description: "Nuevos protocolos para el mantenimiento de dispositivos GPS y módulos de transmisión instalados en las unidades.",
+                      icon: createIcon(Wrench, 'h-4 w-4 text-amber-600')
+                    }
+                  ],
+                  adoptionStrategiesTitle: "Estrategias de Adopción",
+                  adoptionStrategiesIcon: createIcon(ThumbsUp, 'h-5 w-5 text-amber-600'),
+                  adoptionStrategiesItems: [
+                    {
+                      title: "Implementación Gradual",
+                      description: "Comenzando con rutas de mayor demanda",
+                      icon: createIcon(Layers, 'h-4 w-4 text-amber-600')
+                    },
+                    {
+                      title: "Incentivos para Usuarios",
+                      description: "Descuentos y viajes gratuitos promocionales",
+                      icon: createIcon(Award, 'h-4 w-4 text-amber-600')
+                    },
+                    {
+                      title: "Campañas Educativas",
+                      description: "Información sobre beneficios del sistema",
+                      icon: createIcon(Lightbulb, 'h-4 w-4 text-amber-600')
+                    },
+                    {
+                      title: "Alternativas Tecnológicas",
+                      description: "Tarjetas físicas para usuarios sin smartphones",
+                      icon: createIcon(Smartphone, 'h-4 w-4 text-amber-600')
+                    }
+                  ],
+                  resistanceAnalysisTitle: "Resistencia al Cambio",
+                  resistanceAnalysisIcon: createIcon(ThumbsDown, 'h-5 w-5 text-amber-600'),
+                  resistanceSourcesTitle: "Fuentes de Resistencia",
+                  resistanceSourcesIcon: createIcon(XSquare, 'h-4 w-4 text-amber-600'),
+                  resistanceSourcePoints: [
+                    { text: "Operadores de transporte reacios a implementar nuevas tecnologías", icon: createIcon(XCircle, 'w-2 h-2 rounded-full bg-amber-500 mt-2') }, // Used XCircle for specific bullet
+                    { text: "Usuarios sin acceso a smartphones o datos móviles", icon: createIcon(XCircle, 'w-2 h-2 rounded-full bg-amber-500 mt-2') },
+                    { text: "Preocupaciones sobre privacidad y uso de datos personales", icon: createIcon(XCircle, 'w-2 h-2 rounded-full bg-amber-500 mt-2') }
+                  ],
+                  mitigationStrategiesTitle: "Estrategias de Mitigación",
+                  mitigationStrategiesIcon: createIcon(CheckCircle2, 'h-4 w-4 text-amber-600'),
+                  mitigationStrategyPoints: [
+                    { text: "Programas de capacitación inclusivos y accesibles", icon: createIcon(CheckCircle, 'w-2 h-2 rounded-full bg-green-500 mt-2') }, // Used CheckCircle for specific bullet
+                    { text: "Alternativas para usuarios sin acceso a tecnología", icon: createIcon(CheckCircle, 'w-2 h-2 rounded-full bg-green-500 mt-2') },
+                    { text: "Políticas claras de privacidad y protección de datos", icon: createIcon(CheckCircle, 'w-2 h-2 rounded-full bg-green-500 mt-2') }
+                  ],
+                  stakeholderImpactTitle: "Análisis de Impacto en Stakeholders",
+                  stakeholderImpactIcon: createIcon(Lightbulb, 'h-5 w-5 text-amber-600'),
+                  stakeholderImpactTableHeaders: ["Grupo", "Impacto", "Nivel de Resistencia", "Estrategia"],
+                  stakeholderImpactRows: [
+                    { group: "Conductores", impact: "Alto", resistanceLevel: "Alto", resistanceBadgeClass: "bg-red-100 text-red-700", strategy: "Capacitación y beneficios directos" },
+                    { group: "Usuarios jóvenes", impact: "Medio", resistanceLevel: "Bajo", resistanceBadgeClass: "bg-green-100 text-green-700", strategy: "Experiencia de usuario intuitiva" },
+                    { group: "Adultos mayores", impact: "Medio", resistanceLevel: "Alto", resistanceBadgeClass: "bg-red-100 text-red-700", strategy: "Alternativas no digitales y asistencia" }
+                  ]
+                }
+              },
+            {
+                id: "riesgos",
+                title: "Análisis de Riesgos",
+                icon: AlertTriangleMain,
+                iconBgColor: "bg-red-100", iconColor: "text-red-600",
+                content: {
+                    type: "risks",
+                    riskCategories: [ // Using categories for tabs
+                        {
+                            id: 'tecnico',
+                            title: 'Técnico',
+                            icon: createIcon(Server, 'h-4 w-4 mr-2'),
+                            risks: [
+                                { name: 'Problemas de precisión GPS', impact: 'Alto', probability: 'Medio', category: 'Técnico', mitigation: 'Algoritmos de corrección y triangulación' },
+                                { name: 'Fallos de conectividad', impact: 'Alto', probability: 'Alto', category: 'Técnico', mitigation: 'Implementación de modo offline y sincronización posterior' },
+                            ]
+                        },
+                        {
+                            id: 'mercado',
+                            title: 'Mercado',
+                            icon: createIcon(TrendingUp, 'h-4 w-4 mr-2'),
+                            risks: [
+                                { name: 'Baja adopción', impact: 'Alto', probability: 'Medio', category: 'Mercado', mitigation: 'Estrategia de incentivos y campaña de concientización' },
+                                { name: 'Desinterés de operadores', impact: 'Alto', probability: 'Alto', category: 'Mercado', mitigation: 'Demostración de beneficios económicos y operativos' },
+                            ]
+                        },
+                        {
+                            id: 'implementacion',
+                            title: 'Implementación',
+                            icon: createIcon(Wrench, 'h-4 w-4 mr-2'),
+                            risks: [
+                                { name: 'Retrasos en desarrollo', impact: 'Medio', probability: 'Alto', category: 'Implementación', mitigation: 'Metodología ágil con entregas incrementales' }
+                            ]
+                        }
+                    ],
+                    // A flat list of all risks to be passed to RiskMatrix, if different from categorized
+                    allRisks: [
+                        { name: 'Problemas de precisión GPS', impact: 'Alto', probability: 'Medio', category: 'Técnico', mitigation: 'Algoritmos de corrección y triangulación' },
+                        { name: 'Fallos de conectividad', impact: 'Alto', probability: 'Alto', category: 'Técnico', mitigation: 'Implementación de modo offline y sincronización posterior' },
+                        { name: 'Baja adopción', impact: 'Alto', probability: 'Medio', category: 'Mercado', mitigation: 'Estrategia de incentivos y campaña de concientización' },
+                        { name: 'Desinterés de operadores', impact: 'Alto', probability: 'Alto', category: 'Mercado', mitigation: 'Demostración de beneficios económicos y operativos' },
+                        { name: 'Retrasos en desarrollo', impact: 'Medio', probability: 'Alto', category: 'Implementación', mitigation: 'Metodología ágil con entregas incrementales' }
+                    ],
+                    matrixTitle: "Matriz de Riesgos",
+                    matrixTitleIcon: createIcon(AlertTriangleMain, 'h-5 w-5 text-red-600'),
+                    legendTitle: "Leyenda de Riesgos",
+                    legendTitleIcon: createIcon(InfoIcon, 'h-5 w-5 text-slate-700'),
+                    mitigationStrategyLabel: "Estrategia de Mitigación:"
+                }
+            },
+            {
+                id: "cronograma",
+                title: "Cronograma Propuesto",
+                icon: CalendarMain,
+                iconBgColor: "bg-indigo-100", iconColor: "text-indigo-600",
+                content: {
+                    type: "timeline",
+                    phases: [
+                        {
+                            id: 1,
+                            name: 'Planificación y Diseño',
+                            duration: '3 meses',
+                            status: 'Pendiente',
+                            statusBadgeClass: 'badge badge-primary badge-outline',
+                            tasksTitle: 'Tareas Principales',
+                            tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
+                            tasks: [
+                                {text: 'Análisis detallado de requerimientos y casos de uso', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Diseño de arquitectura del sistema y modelo de datos', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Prototipado de interfaces de usuario', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Selección de tecnologías y proveedores', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                            ],
+                            milestonesTitle: 'Hitos',
+                            milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
+                            milestones: [
+                                {text: 'Documento de requerimientos aprobado', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Arquitectura definida', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Prototipos validados', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                            ]
+                        },
+                        {
+                            id: 2,
+                            name: 'Desarrollo',
+                            duration: '6 meses',
+                            status: 'En Progreso', // Updated status for example
+                            statusBadgeClass: 'badge badge-success badge-outline', // Updated badge for example
+                            tasksTitle: 'Tareas Principales',
+                            tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
+                            tasks: [
+                                {text: 'Desarrollo de backend y APIs', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Implementación de sistemas de geolocalización', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Desarrollo de aplicaciones móviles', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Integración de pasarelas de pago', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Pruebas de componentes', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                            ],
+                            milestonesTitle: 'Hitos',
+                            milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
+                            milestones: [
+                                {text: 'Backend funcional', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Aplicación móvil v1.0', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Integración de pagos completada', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                            ]
+                        },
+                        {
+                            id: 3,
+                            name: 'Piloto',
+                            duration: '3 meses',
+                            status: 'Pendiente',
+                            statusBadgeClass: 'badge badge-primary badge-outline',
+                            tasksTitle: 'Tareas Principales',
+                            tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
+                            tasks: [
+                                {text: 'Implementación en rutas seleccionadas', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Capacitación de personal operativo', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Pruebas de usuario y recopilación de feedback', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Ajustes y optimizaciones', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                            ],
+                            milestonesTitle: 'Hitos',
+                            milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
+                            milestones: [
+                                {text: 'Lanzamiento piloto', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Reporte de feedback de usuarios', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Optimizaciones implementadas', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                            ]
+                        },
+                        {
+                            id: 4,
+                            name: 'Despliegue',
+                            duration: '4 meses',
+                            status: 'Pendiente',
+                            statusBadgeClass: 'badge badge-primary badge-outline',
+                            tasksTitle: 'Tareas Principales',
+                            tasksIcon: createIcon(ClipboardList, 'h-4 w-4 text-indigo-600'),
+                            tasks: [
+                                {text: 'Implementación gradual en todas las rutas', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Campañas de difusión y adopción', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Monitoreo y resolución de incidencias', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Evaluación de desempeño inicial', icon: createIcon(CheckSquare, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                            ],
+                            milestonesTitle: 'Hitos',
+                            milestonesIcon: createIcon(Flag, 'h-4 w-4 text-indigo-600'),
+                            milestones: [
+                                {text: 'Despliegue completo', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Reporte de adopción', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')},
+                                {text: 'Evaluación de KPIs iniciales', icon: createIcon(Milestone, 'w-2 h-2 rounded-full bg-indigo-500 mt-2')}
+                            ]
+                        }
+                    ],
+                    summaryTitle: "Resumen de Tiempos",
+                    summaryTitleIcon: createIcon(Clock, 'h-5 w-5 text-indigo-600'),
+                    summaryCards: [
+                        { label: 'Duración Total', value: '16 meses', subLabel: 'Fases 1-4' },
+                        { label: 'Fase más Larga', value: '6 meses', subLabel: 'Desarrollo' },
+                        { label: 'Inicio Estimado', value: 'Abril 2025', subLabel: 'Q2 2025' }, // Matching component display
+                        { label: 'Lanzamiento', value: 'Octubre 2026', subLabel: 'Q4 2026' } // Matching component display
+                    ]
+                }
+            },
             {
                 id: "conclusiones",
                 title: "Conclusiones y Recomendaciones",
@@ -205,7 +505,7 @@ class ProjectDataStore {
                     ],
                     overallRecommendationText: "Proyecto Recomendado para Implementación",
                     overallRecommendationIcon: createIcon(CheckCircle, 'h-5 w-5'),
-                    overallRecommendationBoxClass: 'inline-flex items-center gap-2 bg-teal-600 text-white px-4 py-2 rounded-full', // From the image
+                    overallRecommendationBoxClass: 'inline-flex items-center gap-2 bg-teal-600 text-white px-4 py-2 rounded-full',
                     strengthsTitle: "Fortalezas del Proyecto",
                     strengthsTitleIcon: createIcon(ThumbsUp, 'h-5 w-5 text-teal-600'),
                     strengths: [
@@ -220,6 +520,7 @@ class ProjectDataStore {
                     ],
                     nextStepsTitle: "Próximos Pasos Recomendados",
                     nextStepsTitleIcon: createIcon(ArrowRight, 'h-5 w-5 text-teal-600'),
+                    nextStepsTimelineIndicatorClass: 'bg-teal-500 text-white',
                     nextSteps: [
                         { id: 1, title: "Establecer Comité Directivo", description: "Formar un comité con representantes de todas las partes interesadas: gobierno, operadores de transporte, usuarios, expertos técnicos y académicos.", priority: "Alta", priorityBadgeClass: 'badge bg-teal-100 text-teal-800' },
                         { id: 2, title: "Asegurar Financiamiento Inicial", description: "Gestionar los recursos necesarios para la fase inicial de desarrollo, explorando las diversas fuentes de financiamiento identificadas.", priority: "Alta", priorityBadgeClass: 'badge bg-teal-100 text-teal-800' },
@@ -227,7 +528,7 @@ class ProjectDataStore {
                     ],
                     finalRecommendationSection: {
                         title: "Recomendación Final",
-                        icon: createIcon(Sparkles, 'h-5 w-5 text-teal-600'), // Example, image uses a custom chain-link like SVG
+                        icon: createIcon(Sparkles, 'h-5 w-5 text-teal-600'),
                         text: `Se recomienda proceder con el desarrollo del proyecto siguiendo un enfoque gradual que permita validar hipótesis, ajustar el sistema según feedback de usuarios reales, y escalar la solución de manera sostenible. Es crucial involucrar a todos los actores relevantes desde las etapas iniciales para garantizar la adopción y minimizar la resistencia al cambio.`,
                         actionButton: {
                             text: "Aprobar Proyecto",
@@ -239,9 +540,6 @@ class ProjectDataStore {
             }
 		],
 	});
-
-    // Keep helper methods in utils/formatting.ts as recommended previously for better separation.
-    // If you prefer them here, they can stay, but utils is cleaner.
 }
 
 export const projectData = new ProjectDataStore();

@@ -2,9 +2,10 @@
 import type { ComponentType } from 'svelte';
 
 // --- Global Types ---
+// Used for icons that have both a component and optional styling classes
 export interface IconDetail {
 	component: ComponentType;
-	className?: string; // e.g., 'h-5 w-5 text-emerald-600'
+	className?: string;
 }
 
 export interface HeaderContent {
@@ -21,7 +22,7 @@ export interface FooterContent {
 		icon?: IconDetail;
 		institution: string;
 		faculty: string;
-		documentContext: string;
+		documentContext: string; // "Este documento forma parte del análisis..."
 		documentContextIcon?: IconDetail;
 	};
 	courseDetails: {
@@ -32,16 +33,16 @@ export interface FooterContent {
 			icon?: IconDetail;
 		}[];
 	};
-	copyrightInstitution: string;
+	copyrightInstitution: string; // "Universidad Autónoma del Estado de México"
 	copyrightText: string; // "Todos los derechos reservados."
 }
 
 export interface PageBadge {
 	text: string;
-	bgColorClass: string;
-	hoverBgColorClass: string;
-	textColorClass?: string; // Default to white if not specified
-	icon?: IconDetail;
+	bgColorClass: string; // e.g., 'bg-emerald-600'
+	hoverBgColorClass: string; // e.g., 'hover:bg-emerald-700'
+	textColorClass?: string; // e.g., 'text-white'
+	icon?: IconDetail; // Optional icon for the badge
 }
 
 // --- Section Specific Types ---
@@ -53,7 +54,7 @@ export interface KeyPoint {
 	icon: IconDetail;
 }
 export interface ExecutiveSummaryContent {
-	type: 'executive-summary';
+	type: 'executive-summary'; // Discriminant
 	mainParagraph: string;
 	quote?: {
 		text: string;
@@ -77,7 +78,7 @@ export interface SuccessCriterion {
 	icon?: IconDetail; // e.g., a checkmark
 }
 export interface ObjectivesContent {
-	type: 'objectives';
+	type: 'objectives'; // Discriminant
 	description: string;
 	objectives: ObjectiveItem[]; // Data for ProgressDisplay
 	successCriteriaBoxTitle: string;
@@ -86,8 +87,8 @@ export interface ObjectivesContent {
 }
 
 // Scope
-export interface ScopeComponent {
-	title:string;
+export interface ScopeComponentItem { // Renamed from ScopeComponent for consistency with data
+	title: string;
 	description: string;
 	icon: IconDetail;
 }
@@ -100,9 +101,9 @@ export interface DeliverablePhase {
 	items: DeliverableItem[];
 }
 export interface ScopeContent {
-	type: 'scope';
+	type: 'scope'; // Discriminant
 	componentsTitle: string;
-	components: ScopeComponent[];
+	components: ScopeComponentItem[];
 	deliverablesTitle: string;
 	deliverables: DeliverablePhase[];
 }
@@ -122,10 +123,10 @@ export interface ViabilityPoint {
 }
 export interface ResourcePoint {
 	text: string;
-	icon?: IconDetail; // e.g., a bullet point
+	icon?: IconDetail; // e.g., a bullet point, or specific Lucide icon
 }
 export interface TechnicalFeasibilityContent {
-	type: 'technical-feasibility';
+	type: 'technical-feasibility'; // Discriminant
 	technologiesTitle: string;
 	technologiesTitleIcon?: IconDetail;
 	technologies: TechnologyItem[];
@@ -145,7 +146,6 @@ export interface CostBenefitItem {
 	name: string;
 	amount: number;
 	percentage: number; // Used for the bar in EconomicFeasibility.svelte
-	// Add other fields if ProgressDisplay is used for these items
 }
 export interface ROIDataPoint {
 	yearLabel: string; // "Año 1", "Año 2", etc.
@@ -160,29 +160,28 @@ export interface ROISummaryItem {
 export interface EconomicTab {
 	id: string; // 'costs', 'benefits', 'roi'
 	tabTitle: string; // "Costos", "Beneficios", "ROI"
-	tabIcon: IconDetail;
+	tabIcon?: IconDetail; // Optional icon for the tab button
 	contentTitle?: string; // "Costos Estimados del Proyecto"
 	items?: CostBenefitItem[]; // For costs and benefits
 	totalLabel?: string; // "Costo Total Estimado:"
-	totalAmount?: number; // Calculated or specified
+	note?: string; // For the IMCO data note in benefits
 	roiChartData?: ROIDataPoint[];
     roiSummaryItems?: ROISummaryItem[];
-	note?: string; // For the IMCO data note in benefits
 }
 export interface FundingSourceItem {
 	text: string;
-	icon?: IconDetail;
+	icon?: IconDetail; // e.g., an arrow
 }
 export interface FundingSources {
-	title: string;
+	title: string; // "Fuentes de Financiamiento"
 	titleIcon?: IconDetail;
-	publicTitle: string;
+	publicTitle: string; // "Fondos Públicos"
 	publicSources: FundingSourceItem[];
-	privateTitle: string;
+	privateTitle: string; // "Fondos Privados"
 	privateSources: FundingSourceItem[];
 }
 export interface EconomicFeasibilityContent {
-	type: 'economic-feasibility';
+	type: 'economic-feasibility'; // Discriminant
 	tabs: EconomicTab[];
 	funding: FundingSources;
 }
@@ -193,19 +192,19 @@ export interface OperativeListItem {
 	description: string;
 	icon: IconDetail;
 }
-export interface OperativePoint { // For simple bulleted lists
+export interface OperativePoint { // For simple bulleted lists in resistance/mitigation
     text: string;
     icon?: IconDetail; // For bullet style
 }
 export interface StakeholderImpactRow {
 	group: string;
-	impact: string;
+	impact: string; // e.g., "Alto", "Medio", "Bajo"
 	resistanceLevel: 'Alto' | 'Medio' | 'Bajo';
 	resistanceBadgeClass?: string; // Optional: if colors are data-driven beyond the level
 	strategy: string;
 }
 export interface OperativeFeasibilityContent {
-	type: 'operative-feasibility';
+	type: 'operative-feasibility'; // Discriminant
 	orgChangesTitle: string;
 	orgChangesIcon?: IconDetail;
 	orgChangesItems: OperativeListItem[];
@@ -222,7 +221,7 @@ export interface OperativeFeasibilityContent {
 	mitigationStrategyPoints: OperativePoint[];
 	stakeholderImpactTitle: string;
 	stakeholderImpactIcon?: IconDetail;
-	stakeholderImpactTableHeaders: string[];
+	stakeholderImpactTableHeaders: string[]; // e.g., ["Grupo", "Impacto", ...]
 	stakeholderImpactRows: StakeholderImpactRow[];
 }
 
@@ -233,50 +232,44 @@ export interface RiskItemData {
 	probability: 'Alto' | 'Medio' | 'Bajo';
 	category: string;
 	mitigation: string;
-    // Color classes will be derived by getRiskColor utility
+}
+export interface RiskCategoryTab {
+    id: string; // Unique ID for the tab
+    title: string; // Display title for the tab
+    icon?: IconDetail;
+    risks: RiskItemData[];
 }
 export interface RisksContent {
-	type: 'risks';
-    // Tab structure (if categories are tabs)
-    riskCategories?: {
-        id: string;
-        title: string;
-        icon?: IconDetail;
-        risks: RiskItemData[];
-    }[];
-    // Or a flat list if no tabs for categories
-    allRisks?: RiskItemData[];
+	type: 'risks'; // Discriminant
+    riskCategories?: RiskCategoryTab[]; // Use this if you want tabs for categories
+    allRisks?: RiskItemData[]; // Fallback to a flat list (e.g. for RiskMatrix)
 	matrixTitle: string;
 	matrixTitleIcon?: IconDetail;
-    // Labels for matrix (already in RiskMatrix.svelte, but could be data-driven if needed)
-    // impactAxisLabel: string;
-    // probabilityAxisLabel: string;
-    // cellActionLabels: { /* ... */ };
 	legendTitle: string;
-	legendIcon?: IconDetail;
-    // Risk items for legend are derived from the main risk list
+	legendTitleIcon?: IconDetail;
+    mitigationStrategyLabel: string; // "Estrategia de Mitigación:"
 }
 
 // Timeline
 export interface TimelineTask {
 	text: string;
-	icon?: IconDetail; // Bullet point
+	icon?: IconDetail; // Bullet point, or specific icon
 }
 export interface TimelineMilestone {
 	text: string;
-	icon?: IconDetail; // Bullet point
+	icon?: IconDetail; // Bullet point, or specific icon
 }
 export interface TimelinePhase {
-	id: string | number; // Can be numeric or string like "1"
+	id: string | number; // Unique ID for the phase (e.g., 1, "Fase 1")
 	name: string;
 	duration: string;
 	status: string; // "Pendiente", "En Progreso", "Completado"
 	statusBadgeClass?: string; // e.g. 'badge-primary badge-outline'
 	tasksTitle: string;
-	tasksIcon?: IconDetail;
+	tasksIcon?: IconDetail; // Icon for the tasks section header
 	tasks: TimelineTask[];
 	milestonesTitle: string;
-	milestonesIcon?: IconDetail;
+	milestonesIcon?: IconDetail; // Icon for the milestones section header
 	milestones: TimelineMilestone[];
 }
 export interface TimelineSummaryCard {
@@ -285,7 +278,7 @@ export interface TimelineSummaryCard {
 	subLabel?: string;
 }
 export interface TimelineContent {
-	type: 'timeline';
+	type: 'timeline'; // Discriminant
 	phases: TimelinePhase[];
 	summaryTitle: string;
 	summaryTitleIcon?: IconDetail;
@@ -310,7 +303,7 @@ export interface NextStepItem {
 	priority: string; // "Alta", "Media", "Baja"
 	priorityBadgeClass?: string; // e.g., 'badge bg-teal-100 text-teal-800'
 }
-export interface FinalRecommendation {
+export interface FinalRecommendationSection { // Renamed from FinalRecommendation to be more specific
     title: string;
     icon?: IconDetail;
     text: string;
@@ -321,7 +314,7 @@ export interface FinalRecommendation {
     };
 }
 export interface ConclusionsContent {
-	type: 'conclusions';
+	type: 'conclusions'; // Discriminant
 	generalConclusionTitle: string;
 	mainConclusionParagraphs: string[]; // Array for multiple paragraphs
 	overallRecommendationText: string; // "Proyecto Recomendado para Implementación"
@@ -335,12 +328,13 @@ export interface ConclusionsContent {
 	considerations: ConclusionConsideration[];
 	nextStepsTitle: string;
 	nextStepsTitleIcon?: IconDetail;
-	nextStepsTimelineIndicatorIcon?: IconDetail; // The numbered circle
+	nextStepsTimelineIndicatorClass?: string; // Class for the numbered circle (e.g., bg-teal-500 text-white)
 	nextSteps: NextStepItem[];
-    finalRecommendationSection?: FinalRecommendation;
+    finalRecommendationSection?: FinalRecommendationSection;
 }
 
 // --- Main ProjectSection Type ---
+// Union type to allow 'content' to be any of the specific section content types
 export type SectionContent =
 	| ExecutiveSummaryContent
 	| ObjectivesContent
@@ -352,19 +346,20 @@ export type SectionContent =
 	| TimelineContent
 	| ConclusionsContent;
 
+// Defines the structure for each section that will be rendered on the page
 export interface ProjectSection {
-	id: string;
-	title: string; // For the section header
+	id: string; // Unique ID for the section (e.g., "resumen")
+	title: string; // Display title for the section header (e.g., "Resumen Ejecutivo")
 	icon: ComponentType; // Main icon for the section header in Section.svelte
-	iconBgColor?: string;
-	iconColor?: string;
-	defaultExpanded?: boolean;
-	content: SectionContent;
+	iconBgColor?: string; // Background color for the section header icon
+	iconColor?: string; // Color for the section header icon
+	defaultExpanded?: boolean; // Whether the section should be expanded by default
+	content: SectionContent; // The specific content data for this section type
 }
 
-// For projectData store itself
+// The top-level configuration for the entire project presentation
 export interface ProjectConfig {
-    siteHtmlTitle: string;
+    siteHtmlTitle: string; // Title for the browser tab (HTML <title> tag)
     header: HeaderContent;
     footer: FooterContent;
     pageIntro: {

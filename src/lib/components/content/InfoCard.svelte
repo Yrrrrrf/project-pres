@@ -26,7 +26,8 @@
             {#if showIcon && icon}
                 <div class={`${iconBgColor} p-1.5 rounded-full`}>
                     {#if icon}
-                        <icon class={`h-5 w-5 ${iconColor}`} />
+                        {@const Icon = icon}
+                        <Icon class={`h-5 w-5 ${iconColor}`} />
                     {/if}
                 </div>
             {/if}
